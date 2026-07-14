@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  subtitle: MyString
+  context: MyText
+  problem: MyText
+  solution: MyText
+  outcome: MyText
+  github_url: MyString
+
+two:
+  title: MyString
+  subtitle: MyString
+  context: MyText
+  problem: MyText
+  solution: MyText
+  outcome: MyText
+  github_url: MyString

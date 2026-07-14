@@ -1,0 +1,52 @@
+<%= form_with(model: project, class: "contents") do |form| %>
+  <% if project.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% project.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": project.errors[:title].none?, "border-red-400 focus:outline-red-600": project.errors[:title].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :subtitle %>
+    <%= form.text_field :subtitle, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": project.errors[:subtitle].none?, "border-red-400 focus:outline-red-600": project.errors[:subtitle].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :context %>
+    <%= form.textarea :context, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": project.errors[:context].none?, "border-red-400 focus:outline-red-600": project.errors[:context].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :problem %>
+    <%= form.textarea :problem, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": project.errors[:problem].none?, "border-red-400 focus:outline-red-600": project.errors[:problem].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :solution %>
+    <%= form.textarea :solution, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": project.errors[:solution].none?, "border-red-400 focus:outline-red-600": project.errors[:solution].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :outcome %>
+    <%= form.textarea :outcome, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": project.errors[:outcome].none?, "border-red-400 focus:outline-red-600": project.errors[:outcome].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :github_url %>
+    <%= form.text_field :github_url, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": project.errors[:github_url].none?, "border-red-400 focus:outline-red-600": project.errors[:github_url].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>
