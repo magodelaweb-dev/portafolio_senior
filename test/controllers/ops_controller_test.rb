@@ -23,4 +23,13 @@ class OpsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to ops_path
   end
+
+  test "enqueue via Turbo Stream updates the dashboard in place" do
+    assert_enqueued_with(job: DemoTelemetryJob) do
+      post ops_enqueue_url, as: :turbo_stream
+    end
+    assert_response :success
+    assert_match "text/vnd.turbo-stream.html", @response.media_type
+    assert_match(/<turbo-stream action="update" target="ops_metrics">/, @response.body)
+  end
 end
