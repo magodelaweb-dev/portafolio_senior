@@ -1,30 +1,49 @@
-<div id="<%= dom_id project %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Title:</strong>
-    <%= project.title %>
+<article id="<%= dom_id project %>">
+  <header class="mb-12 border-b border-slate-200 pb-8">
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl"><%= project.title %></h1>
+    <% if project.subtitle.present? %>
+      <p class="mt-3 text-lg text-slate-600"><%= project.subtitle %></p>
+    <% end %>
+    <% if project.github_url.present? %>
+      <a href="<%= project.github_url %>" target="_blank" rel="noopener"
+         class="mt-5 inline-flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-indigo-300 hover:text-indigo-600">
+        Ver repositorio
+        <span aria-hidden="true">&rarr;</span>
+      </a>
+    <% end %>
+  </header>
+
+  <div class="space-y-12">
+    <section>
+      <div class="flex items-center gap-3">
+        <span class="grid h-9 w-9 place-items-center rounded-lg bg-sky-100 text-sm font-bold text-sky-700">S</span>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-500">Situación</h2>
+      </div>
+      <div class="prose-star mt-4 sm:pl-12"><%= markdown(project.context) %></div>
+    </section>
+
+    <section>
+      <div class="flex items-center gap-3">
+        <span class="grid h-9 w-9 place-items-center rounded-lg bg-amber-100 text-sm font-bold text-amber-700">T</span>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-500">Tarea</h2>
+      </div>
+      <div class="prose-star mt-4 sm:pl-12"><%= markdown(project.problem) %></div>
+    </section>
+
+    <section>
+      <div class="flex items-center gap-3">
+        <span class="grid h-9 w-9 place-items-center rounded-lg bg-indigo-100 text-sm font-bold text-indigo-700">A</span>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-500">Acción</h2>
+      </div>
+      <div class="prose-star mt-4 sm:pl-12"><%= markdown(project.solution) %></div>
+    </section>
+
+    <section>
+      <div class="flex items-center gap-3">
+        <span class="grid h-9 w-9 place-items-center rounded-lg bg-emerald-100 text-sm font-bold text-emerald-700">R</span>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-500">Resultado</h2>
+      </div>
+      <div class="prose-star mt-4 sm:pl-12"><%= markdown(project.outcome) %></div>
+    </section>
   </div>
-  <div>
-    <strong class="block font-medium mb-1">Subtitle:</strong>
-    <%= project.subtitle %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Context:</strong>
-    <%= project.context %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Problem:</strong>
-    <%= project.problem %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Solution:</strong>
-    <%= project.solution %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Outcome:</strong>
-    <%= project.outcome %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Github url:</strong>
-    <%= project.github_url %>
-  </div>
-</div>
+</article>

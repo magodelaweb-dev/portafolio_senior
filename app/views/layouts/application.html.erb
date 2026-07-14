@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
+    <meta charset="utf-8">
     <title><%= content_for(:title) || "Portafolio Senior" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -23,9 +24,28 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
+    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur">
+      <nav class="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
+        <%= link_to root_path, class: "flex items-center gap-2 font-semibold tracking-tight" do %>
+          <span class="grid h-8 w-8 place-items-center rounded-lg bg-indigo-600 text-sm font-bold text-white">AM</span>
+          <span>Arturo Martinez</span>
+        <% end %>
+        <div class="flex items-center gap-6 text-sm font-medium text-slate-600">
+          <%= link_to "Proyectos", root_path, class: "transition hover:text-indigo-600" %>
+          <a href="https://github.com/magodelaweb-dev/portafolio_senior" class="transition hover:text-indigo-600">GitHub</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="mx-auto max-w-5xl px-5 py-12">
       <%= yield %>
     </main>
+
+    <footer class="border-t border-slate-200 py-8">
+      <div class="mx-auto max-w-5xl px-5 text-sm text-slate-500">
+        &copy; <%= Date.current.year %> Arturo Martinez &middot; Construido con Rails <%= Rails::VERSION::STRING %> y Tailwind CSS
+      </div>
+    </footer>
   </body>
 </html>

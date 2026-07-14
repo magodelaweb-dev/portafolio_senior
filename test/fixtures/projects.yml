@@ -1,19 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  subtitle: MyString
-  context: MyText
-  problem: MyText
-  solution: MyText
-  outcome: MyText
-  github_url: MyString
+  title: Migración a arquitectura orientada a colas
+  subtitle: Reducción del 92% en la latencia p95
+  context: "**Situación** con carga alta y timeouts."
+  problem: "Desacoplar el cálculo del request HTTP."
+  solution: "Jobs idempotentes con cola respaldada por BD."
+  outcome: "Latencia p95 de 40s a 3.1s."
+  github_url: https://github.com/magodelaweb-dev/portafolio_senior
 
 two:
-  title: MyString
-  subtitle: MyString
-  context: MyText
-  problem: MyText
-  solution: MyText
-  outcome: MyText
-  github_url: MyString
+  title: Cache de segundo nivel para catálogo
+  subtitle: De 850ms a 45ms en la home
+  context: "60+ consultas por request en portada."
+  problem: "Reducir lecturas sin perder frescura."
+  solution: "Caching por fragmentos con Solid Cache."
+  outcome: "Portada de 850ms a 45ms."
+  github_url: https://github.com/magodelaweb-dev/portafolio_senior

@@ -1,9 +1,12 @@
-<% content_for :title, "New project" %>
+<% content_for :title, "Nuevo estudio de caso" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New project</h1>
+<div class="mx-auto max-w-2xl">
+  <h1 class="text-3xl font-bold tracking-tight">Nuevo estudio de caso</h1>
+  <p class="mt-2 text-sm text-slate-500">Los campos S/T/A/R aceptan <strong>Markdown</strong> (GFM).</p>
 
   <%= render "form", project: @project %>
 
-  <%= link_to "Back to projects", projects_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to root_path, class: "mt-4 inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition hover:text-indigo-600" do %>
+    <span aria-hidden="true">&larr;</span> Volver a proyectos
+  <% end %>
 </div>

@@ -1,0 +1,13 @@
+<%= link_to project, id: dom_id(project), class: "group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-md" do %>
+  <h2 class="text-xl font-semibold tracking-tight transition group-hover:text-indigo-600"><%= project.title %></h2>
+  <% if project.subtitle.present? %>
+    <p class="mt-1 text-sm text-slate-500"><%= project.subtitle %></p>
+  <% end %>
+  <p class="mt-4 line-clamp-3 grow text-sm leading-relaxed text-slate-600">
+    <%= markdown_excerpt(project.context, length: 180) %>
+  </p>
+  <span class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-indigo-600">
+    Ver estudio de caso
+    <span aria-hidden="true" class="transition group-hover:translate-x-0.5">&rarr;</span>
+  </span>
+<% end %>

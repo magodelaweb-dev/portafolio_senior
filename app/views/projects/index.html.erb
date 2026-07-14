@@ -1,29 +1,32 @@
-<% content_for :title, "Projects" %>
+<% content_for :title, "Proyectos · Arturo Martinez" %>
 
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+<section class="mb-14">
+  <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-indigo-600">Portafolio de ingeniería</p>
+  <h1 class="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
+    Estudios de caso de arquitectura, no una lista de tecnologías.
+  </h1>
+  <p class="mt-4 max-w-2xl text-lg text-slate-600">
+    Cada proyecto está documentado con el método <strong>STAR</strong> (Situación, Tarea, Acción y
+    Resultado) para mostrar las decisiones técnicas y su impacto medible.
+  </p>
+</section>
+
+<% if notice.present? %>
+  <p class="mb-6 inline-block rounded-md bg-emerald-50 px-3 py-2 font-medium text-emerald-600" id="notice"><%= notice %></p>
+<% end %>
+
+<div id="projects" class="grid gap-6 sm:grid-cols-2">
+  <% if @projects.any? %>
+    <%= render partial: "projects/card", collection: @projects, as: :project %>
+  <% else %>
+    <div class="col-span-full rounded-xl border border-dashed border-slate-300 p-12 text-center text-slate-500">
+      Aún no hay proyectos. <%= link_to "Crea el primero", new_project_path, class: "font-medium text-indigo-600 hover:underline" %>.
+    </div>
   <% end %>
+</div>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Projects</h1>
-    <%= link_to "New project", new_project_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
-  </div>
-
-  <div id="projects" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @projects.any? %>
-      <% @projects.each do |project| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render project %>
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= link_to "Show", project, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_project_path(project), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= button_to "Destroy", project, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <p class="text-center my-10">No projects found.</p>
-    <% end %>
-  </div>
+<div class="mt-10">
+  <%= link_to new_project_path, class: "inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition hover:text-indigo-600" do %>
+    + Nuevo estudio de caso
+  <% end %>
 </div>
