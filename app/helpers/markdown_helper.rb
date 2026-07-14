@@ -2,7 +2,7 @@ module MarkdownHelper
   # Safe GitHub-Flavored Markdown rendering.
   #
   # `render.unsafe` is kept false so raw/embedded HTML in the source text is
-  # escaped instead of injected, protecting against stored XSS while still
+  # omitted instead of injected, protecting against stored XSS while still
   # letting us mark the output as html_safe.
   MARKDOWN_OPTIONS = {
     render: { unsafe: false, hardbreaks: false, github_pre_lang: true },
