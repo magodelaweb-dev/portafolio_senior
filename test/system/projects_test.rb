@@ -16,8 +16,9 @@ class ProjectsTest < ApplicationSystemTestCase
     visit project_path(@project)
 
     assert_selector "h1", text: @project.title
-    %w[Situación Tarea Acción Resultado].each do |label|
-      assert_text label
+    # STAR headings are displayed uppercase via CSS, so match case-insensitively.
+    [ "Situación", "Tarea", "Acción", "Resultado" ].each do |label|
+      assert_text(/#{label}/i)
     end
   end
 end
