@@ -1,0 +1,25 @@
+<% content_for :title, "Operaciones · Arturo Martinez" %>
+
+<section class="mb-8 flex flex-wrap items-end justify-between gap-4">
+  <div>
+    <p class="mb-2 text-sm font-semibold uppercase tracking-widest text-indigo-600">La app viva</p>
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Panel de operaciones</h1>
+    <p class="mt-2 max-w-2xl text-slate-600">
+      Telemetría en vivo: tiempos de respuesta, uso de las bases de datos SQLite y estado de los
+      jobs de <strong>Solid Queue</strong>. Se actualiza solo vía Turbo Frames + Stimulus, sin JS pesado.
+    </p>
+  </div>
+  <%= button_to "Encolar job de demo", ops_enqueue_path,
+        class: "shrink-0 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-500 cursor-pointer" %>
+</section>
+
+<% if notice.present? %>
+  <p class="mb-6 inline-block rounded-md bg-emerald-50 px-3 py-2 font-medium text-emerald-600"><%= notice %></p>
+<% end %>
+
+<%= turbo_frame_tag "ops_metrics", src: ops_metrics_path,
+      data: { controller: "poll", poll_interval_value: 3000 } do %>
+  <div class="grid place-items-center rounded-2xl border border-slate-200 bg-white py-20 text-slate-400">
+    Cargando métricas…
+  </div>
+<% end %>

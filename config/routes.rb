@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   resources :projects
+
+  # Live operations dashboard ("the app alive").
+  get "ops" => "ops#index", as: :ops
+  get "ops/metrics" => "ops#metrics", as: :ops_metrics
+  post "ops/enqueue" => "ops#enqueue", as: :ops_enqueue
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
