@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  allow_unauthenticated_access only: %i[ index show ]
   before_action :set_project, only: %i[ show edit update destroy ]
 
   # GET /projects or /projects.json

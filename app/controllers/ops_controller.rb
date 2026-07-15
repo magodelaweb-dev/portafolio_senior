@@ -1,4 +1,6 @@
 class OpsController < ApplicationController
+  allow_unauthenticated_access only: %i[ index metrics ]
+
   # GET /ops
   def index
   end

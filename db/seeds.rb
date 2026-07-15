@@ -90,3 +90,18 @@ case_studies.each do |attrs|
 end
 
 puts "Seeded #{Project.count} project case studies."
+
+# Admin user for the protected write actions (projects CRUD, /ops/enqueue).
+# Credentials are read from Rails.application.credentials.admin with an ENV
+# fallback, so no secret is committed to the repository.
+admin_email = Rails.application.credentials.dig(:admin, :email_address) || ENV["ADMIN_EMAIL"]
+admin_password = Rails.application.credentials.dig(:admin, :password) || ENV["ADMIN_PASSWORD"]
+
+if admin_email.present? && admin_password.present?
+  User.find_or_create_by!(email_address: admin_email) do |user|
+    user.password = admin_password
+  end
+  puts "Ensured admin user #{admin_email} exists."
+else
+  puts "Skipped admin user seed: set credentials admin.email_address/admin.password or ADMIN_EMAIL/ADMIN_PASSWORD."
+end

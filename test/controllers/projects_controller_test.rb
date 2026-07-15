@@ -3,19 +3,31 @@ require "test_helper"
 class ProjectsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @project = projects(:one)
+    @user = users(:one)
   end
 
-  test "should get index" do
+  # --- Public read-only actions ---
+
+  test "should get index without authentication" do
     get projects_url
     assert_response :success
   end
 
-  test "should get new" do
+  test "should show project without authentication" do
+    get project_url(@project)
+    assert_response :success
+  end
+
+  # --- Protected write actions (authenticated) ---
+
+  test "should get new when authenticated" do
+    sign_in_as(@user)
     get new_project_url
     assert_response :success
   end
 
-  test "should create project" do
+  test "should create project when authenticated" do
+    sign_in_as(@user)
     assert_difference("Project.count") do
       post projects_url, params: { project: { context: @project.context, github_url: @project.github_url, outcome: @project.outcome, problem: @project.problem, solution: @project.solution, subtitle: @project.subtitle, title: @project.title } }
     end
@@ -23,26 +35,56 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to project_url(Project.last)
   end
 
-  test "should show project" do
-    get project_url(@project)
-    assert_response :success
-  end
-
-  test "should get edit" do
+  test "should get edit when authenticated" do
+    sign_in_as(@user)
     get edit_project_url(@project)
     assert_response :success
   end
 
-  test "should update project" do
+  test "should update project when authenticated" do
+    sign_in_as(@user)
     patch project_url(@project), params: { project: { context: @project.context, github_url: @project.github_url, outcome: @project.outcome, problem: @project.problem, solution: @project.solution, subtitle: @project.subtitle, title: @project.title } }
     assert_redirected_to project_url(@project)
   end
 
-  test "should destroy project" do
+  test "should destroy project when authenticated" do
+    sign_in_as(@user)
     assert_difference("Project.count", -1) do
       delete project_url(@project)
     end
 
     assert_redirected_to projects_url
+  end
+
+  # --- Protected write actions require authentication ---
+
+  test "new redirects to login when unauthenticated" do
+    get new_project_url
+    assert_redirected_to new_session_url
+  end
+
+  test "create is blocked when unauthenticated" do
+    assert_no_difference("Project.count") do
+      post projects_url, params: { project: { title: "Nope" } }
+    end
+    assert_redirected_to new_session_url
+  end
+
+  test "edit redirects to login when unauthenticated" do
+    get edit_project_url(@project)
+    assert_redirected_to new_session_url
+  end
+
+  test "update is blocked when unauthenticated" do
+    patch project_url(@project), params: { project: { title: "Hijacked" } }
+    assert_redirected_to new_session_url
+    assert_not_equal "Hijacked", @project.reload.title
+  end
+
+  test "destroy is blocked when unauthenticated" do
+    assert_no_difference("Project.count") do
+      delete project_url(@project)
+    end
+    assert_redirected_to new_session_url
   end
 end
