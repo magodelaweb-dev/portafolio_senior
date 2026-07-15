@@ -35,6 +35,11 @@
           <%= link_to "Proyectos", root_path, class: "transition hover:text-indigo-600" %>
           <%= link_to "Operaciones", ops_path, class: "transition hover:text-indigo-600" %>
           <a href="https://github.com/magodelaweb-dev/portafolio_senior" class="transition hover:text-indigo-600">GitHub</a>
+          <% if authenticated? %>
+            <%= button_to "Salir", session_path, method: :delete, class: "cursor-pointer font-medium text-slate-600 transition hover:text-indigo-600" %>
+          <% else %>
+            <%= link_to "Entrar", new_session_path, class: "transition hover:text-indigo-600" %>
+          <% end %>
         </div>
       </nav>
     </header>

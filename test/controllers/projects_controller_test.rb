@@ -18,6 +18,32 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "index hides admin controls and shows login link when unauthenticated" do
+    get projects_url
+    assert_select "a[href=?]", new_session_path, text: "Entrar"
+    assert_select "a[href=?]", new_project_path, count: 0
+  end
+
+  test "index shows new-project control and logout when authenticated" do
+    sign_in_as(@user)
+    get projects_url
+    assert_select "a[href=?]", new_project_path
+    assert_select "form[action=?]", session_path
+  end
+
+  test "show hides admin controls when unauthenticated" do
+    get project_url(@project)
+    assert_select "a[href=?]", edit_project_path(@project), count: 0
+    assert_select "form[action=?]", project_path(@project), count: 0
+  end
+
+  test "show reveals admin controls when authenticated" do
+    sign_in_as(@user)
+    get project_url(@project)
+    assert_select "a[href=?]", edit_project_path(@project), text: "Editar"
+    assert_select "form[action=?]", project_path(@project)
+  end
+
   # --- Protected write actions (authenticated) ---
 
   test "should get new when authenticated" do

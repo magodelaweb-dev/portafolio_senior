@@ -9,8 +9,10 @@
       jobs de <strong>Solid Queue</strong>. Se actualiza solo vía Turbo Frames + Stimulus, sin JS pesado.
     </p>
   </div>
-  <%= button_to "Encolar job de demo", ops_enqueue_path,
-        class: "shrink-0 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-500 cursor-pointer" %>
+  <% if authenticated? %>
+    <%= button_to "Encolar job de demo", ops_enqueue_path,
+          class: "shrink-0 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-500 cursor-pointer" %>
+  <% end %>
 </section>
 
 <% if notice.present? %>
