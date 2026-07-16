@@ -5,7 +5,7 @@
         <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
         <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
       </span>
-      En vivo
+      Monitoreando
     </span>
     <span>Actualizado a las <%= metrics[:generated_at].strftime("%H:%M:%S") %></span>
   </div>
@@ -31,7 +31,7 @@
 
   <%# ---- Telemetría de peticiones ---- %>
   <section>
-    <h2 class="mb-3 text-sm font-semibold uppercase tracking-widest text-slate-500">Peticiones HTTP (muestra en memoria)</h2>
+    <h2 class="mb-3 text-sm font-semibold uppercase tracking-widest text-slate-500">Métricas de Peticiones HTTP (Muestreo en Memoria)</h2>
     <div class="grid grid-cols-2 gap-4 sm:grid-cols-5">
       <% req = metrics[:requests] %>
       <% [
@@ -39,7 +39,7 @@
            [ "Media", req[:avg], " ms" ],
            [ "p95", req[:p95], " ms" ],
            [ "Máx", req[:max], " ms" ],
-           [ "BD media", req[:avg_db], " ms" ]
+           [ "BD (Promedio)", req[:avg_db], " ms" ]
          ].each do |label, value, unit| %>
         <div class="rounded-xl border border-slate-200 bg-white p-4">
           <p class="text-xs uppercase tracking-wide text-slate-400"><%= label %></p>
@@ -155,7 +155,7 @@
     <% c = metrics[:cache] %>
     <div class="rounded-xl border border-slate-200 bg-white p-4">
       <% if c[:available] %>
-        <p class="text-xs uppercase tracking-wide text-slate-400">Entradas en caché</p>
+        <p class="text-xs uppercase tracking-wide text-slate-400">Elementos en Caché</p>
         <p class="mt-1 text-2xl font-bold text-slate-900"><%= c[:entries] %></p>
       <% else %>
         <p class="text-sm text-slate-500">Solid Cache no está disponible en este entorno.</p>
