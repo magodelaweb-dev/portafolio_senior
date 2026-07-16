@@ -1,0 +1,33 @@
+---
+linters:
+  ErbSafety:
+    enabled: true
+
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      inherit_gem:
+        rubocop-rails-omakase: rubocop.yml
+      # Layout cops assume a full file; erb_lint runs them against isolated
+      # Ruby fragments extracted from each ERB tag, so file-level layout
+      # checks (final newline, blank lines, etc.) produce false positives.
+      Layout:
+        Enabled: false
+
+  DeprecatedClassMethods:
+    enabled: true
+
+  RequireInputAutocomplete:
+    enabled: false
+
+  SpaceAroundErbTag:
+    enabled: true
+
+  SpaceIndentation:
+    enabled: true
+
+  TrailingWhitespace:
+    enabled: true
+
+  FinalNewline:
+    enabled: true
