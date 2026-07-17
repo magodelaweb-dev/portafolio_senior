@@ -8,7 +8,7 @@ class ProjectsTest < ApplicationSystemTestCase
   test "visiting the index lists case-study cards" do
     visit root_path
 
-    assert_selector "h1", text: "Estudios de caso"
+    assert_selector "h1", text: "Análisis de diseño y arquitectura de software"
     assert_selector "#projects a", minimum: 1
   end
 
