@@ -58,5 +58,28 @@ Cantidad de entradas actualmente en caché. Es un indicador de actividad, no de 
 
 ## 💻 Configuración del Entorno Local
 
+### Requisitos previos
+* **Ruby 3.4.10** (versión fijada en `.ruby-version`). Instálala con un gestor de versiones como [rbenv](https://github.com/rbenv/rbenv), [asdf](https://asdf-vm.com/) o [mise](https://mise.jdx.dev/).
+* **SQLite3** (`>= 2.1` vía el gem `sqlite3`). En la mayoría de sistemas ya viene instalado; si no, ver [sqlite.org/download.html](https://sqlite.org/download.html).
+* **Git**. Ver [git-scm.com/downloads](https://git-scm.com/downloads).
+
+Este README no cubre la instalación de estas herramientas base en un sistema sin aprovisionar — para eso, la documentación oficial de cada una (enlazada arriba) está más actualizada que cualquier copia que podamos mantener aquí.
+
 ### Instalación rápida
-1. Clonar el repositorio...
+Con Ruby, SQLite3 y Git ya instalados, clona el repositorio y ejecuta:
+
+```bash
+git clone <url-del-repositorio>
+cd portafolio_senior
+bin/setup
+```
+
+`bin/setup` es idempotente y hace todo el trabajo: instala las gemas (`bundle install`), prepara las 4 bases SQLite —`primary`, `cache`, `queue`, `cable`— (`bin/rails db:prepare`), limpia logs/tmp, y finalmente levanta el servidor (`bin/dev`, que corre Puma + Tailwind watch + Solid Queue vía `Procfile.dev`).
+
+Al terminar, la app queda disponible en `http://localhost:3000`.
+
+Variantes:
+* `bin/setup --skip-server` — hace todo lo anterior sin arrancar el servidor al final (útil en CI o si prefieres arrancarlo tú mismo con `bin/dev`).
+* `bin/setup --reset` — además, resetea la base de datos (`bin/rails db:reset`) en vez de solo prepararla.
+
+No hace falta ningún paso de compilación de JS/CSS aparte: no hay `package.json` (el JS se sirve vía importmap, sin bundler) y Tailwind se compila automáticamente en `bin/dev`.
