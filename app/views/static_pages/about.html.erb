@@ -1,0 +1,114 @@
+<% content_for :title, "Sobre mí · Arturo Martinez" %>
+
+<article class="mx-auto max-w-3xl">
+  <header class="mb-14">
+    <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-indigo-600">Sobre mí</p>
+    <h1 class="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
+      Programador por Pasión, Ingeniero por Disciplina
+    </h1>
+  </header>
+
+  <div class="prose-star space-y-6 text-slate-700">
+    <figure class="my-8">
+      <%= image_tag "about/pentium-crt.svg",
+            alt: "Foto de una computadora de escritorio beige tipo torre Pentium 1, con monitor de tubo (CRT) y teclado mecánico",
+            class: "w-full rounded-xl border border-slate-200" %>
+    </figure>
+
+    <p>
+      Empecé a programar a los 16 años en una Pentium 1, devorando revistas de algoritmos y libros
+      fotocopiados en una era donde la información no estaba a un clic de distancia. Mi gran tesoro
+      de la época era "La Biblia del Visual Basic", un tomo enorme que fotocopié por completo de la
+      casa de un pariente.
+    </p>
+
+    <p>
+      Mi primer gran hito fue desarrollar una aplicación de escritorio para un profesional del poder
+      judicial, diseñada para automatizar el cálculo de liquidaciones que hasta entonces se ejecutaba
+      de forma estrictamente manual. Fue mi verdadero "bautismo de fuego" en la ingeniería de
+      software; allí aprendí a la fuerza conceptos fundamentales como el diseño de la interfaz de
+      usuario, la lógica del sistema, la gestión de bases de datos (con Access y MySQL), el proceso
+      de compilación y el manejo de entornos de desarrollo y producción. El ejecutable final pesaba
+      alrededor de 10MB, una enormidad que superaba la capacidad de los disquetes de 1.44MB de la
+      época.
+    </p>
+
+    <figure class="my-8">
+      <%= image_tag "about/disquete-zip.svg",
+            alt: "Foto de un disquete de 1.44MB al lado de un disco Iomega ZIP de 100MB",
+            class: "w-full rounded-xl border border-slate-200" %>
+    </figure>
+
+    <p>
+      ¿La solución? Conseguí un disco Iomega ZIP de 100MB para poder distribuir el software. Fue
+      toda una aventura logística y tecnológica para mí en ese momento.
+    </p>
+
+    <section class="pt-6">
+      <h2 class="text-2xl font-bold tracking-tight text-slate-900">El ADN Autodidacta</h2>
+
+      <p class="mt-4">
+        Esta capacidad para aprender por mi cuenta nació mucho antes, en 2do de primaria. Mi papá me
+        llevó a una capacitación de DOS de su trabajo; sin una computadora al frente, usé un cuaderno
+        de 50 hojas y un lápiz para simular los comandos e inputs del sistema operativo, asimilando su
+        lógica interna.
+      </p>
+
+      <figure class="my-8">
+        <%= image_tag "about/cuaderno-dos.svg",
+              alt: "Foto de un cuaderno escolar de 50 hojas abierto con dibujos a lápiz que simulan una línea de comandos: C:\\>",
+              class: "w-full rounded-xl border border-slate-200" %>
+      </figure>
+
+      <p>
+        Años más tarde, esa misma estructura mental me sirvió para reparar mis propias computadoras y
+        para diseñar soluciones complejas de forma creativa, como un sistema contable en una versión
+        antigua de Excel. A falta de fórmulas avanzadas y sin saber aún programación, ideé un
+        ecosistema de múltiples tablas de cálculo interconectadas para resolver el problema. Esa
+        necesidad de romper limitaciones fue mi motor definitivo para aprender Visual Basic.
+      </p>
+    </section>
+
+    <section class="pt-6">
+      <h2 class="text-2xl font-bold tracking-tight text-slate-900">Ingenio frente a la evolución tecnológica</h2>
+
+      <p class="mt-4">
+        Con el tiempo expandí mi stack hacia tecnologías web (PHP, CSS, JS) y comencé a desarrollar
+        sitios comerciales en Perú para colegios, institutos, ferreterías y al menos tres empresas
+        distintas dedicadas a la comercialización y gestión de camiones y maquinaria pesada.
+      </p>
+
+      <figure class="my-8">
+        <%= image_tag "about/codigo-algoritmo.svg",
+              alt: "Captura conceptual de código de texto de un algoritmo, evocando la interfaz antigua de Facebook circa 2011",
+              class: "w-full rounded-xl border border-slate-200" %>
+      </figure>
+
+      <p>
+        Alrededor del año 2011, asumí el desafío de crear una herramienta de web scraping para
+        extraer comentarios y obtener leads (nombres y correos) de publicaciones propietarias en
+        Facebook. Sin las APIs modernas ni las herramientas de IA actuales, construí algoritmos
+        basados en patrones de texto puros para deducir identidades analizando la estructura de los
+        mensajes, usando expresiones lógicas y cruzando datos con los nombres de usuario. En esa
+        misma línea, automaticé un validador de correos electrónicos que interactuaba directamente
+        con el protocolo SMTP para evaluar las respuestas del servidor.
+      </p>
+
+      <p>
+        Toda esta trayectoria de resolver problemas complejos con recursos limitados se consolidó en
+        mi etapa académica, donde me gradué con honores obteniendo el Primer Puesto en Orden de
+        Mérito de la carrera de Ingeniería Informática.
+      </p>
+
+      <p class="font-medium text-slate-900">
+        Y acá empieza mi historia profesional&hellip;
+      </p>
+    </section>
+  </div>
+
+  <div class="mt-16 border-t border-slate-200 pt-8">
+    <%= link_to root_path, class: "inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition hover:text-indigo-600" do %>
+      <span aria-hidden="true">&rarr;</span> Ver proyectos
+    <% end %>
+  </div>
+</article>

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
   resources :projects
 
+  get "about" => "static_pages#about", as: :about
+
   # Live operations dashboard ("the app alive").
   get "ops" => "ops#index", as: :ops
   get "ops/metrics" => "ops#metrics", as: :ops_metrics
