@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder: logs de servidor transformándose en base de datos</title>
+  <desc id="desc">Ilustración provisional de líneas de log de texto plano con marcas de tiempo difuminándose hacia una estructura de base de datos relacional.</desc>
+  <rect width="800" height="500" fill="#0f172a"/>
+  <g font-family="monospace" font-size="13" fill="#475569">
+    <text x="50" y="110">2024-02-03T04:12:08Z INFO  users.insert id=8841</text>
+    <text x="50" y="135">2024-02-03T04:12:09Z INFO  orders.update id=2210</text>
+    <text x="50" y="160" fill="#64748b">2024-02-03T04:12:11Z INFO  users.insert id=8842</text>
+    <text x="50" y="185" fill="#94a3b8">2024-02-03T04:12:12Z INFO  orders.insert id=2211</text>
+    <text x="50" y="210" fill="#cbd5e1">2024-02-03T04:12:14Z INFO  payments.insert id=771</text>
+  </g>
+  <path d="M330 160 L 470 220" stroke="#6366f1" stroke-width="2" stroke-dasharray="6 6"/>
+  <path d="M330 190 L 470 240" stroke="#6366f1" stroke-width="2" stroke-dasharray="6 6"/>
+  <g transform="translate(470,150)">
+    <rect width="240" height="60" rx="6" fill="#111827" stroke="#6366f1" stroke-width="2"/>
+    <text x="12" y="25" font-family="monospace" font-size="14" fill="#a5b4fc">users</text>
+    <line x1="0" y1="34" x2="240" y2="34" stroke="#334155"/>
+    <text x="12" y="52" font-family="monospace" font-size="12" fill="#64748b">id · email · created_at</text>
+  </g>
+  <g transform="translate(470,230)">
+    <rect width="240" height="60" rx="6" fill="#111827" stroke="#6366f1" stroke-width="2"/>
+    <text x="12" y="25" font-family="monospace" font-size="14" fill="#a5b4fc">orders</text>
+    <line x1="0" y1="34" x2="240" y2="34" stroke="#334155"/>
+    <text x="12" y="52" font-family="monospace" font-size="12" fill="#64748b">id · user_id · total</text>
+  </g>
+  <g transform="translate(470,310)">
+    <rect width="240" height="60" rx="6" fill="#111827" stroke="#6366f1" stroke-width="2"/>
+    <text x="12" y="25" font-family="monospace" font-size="14" fill="#a5b4fc">payments</text>
+    <line x1="0" y1="34" x2="240" y2="34" stroke="#334155"/>
+    <text x="12" y="52" font-family="monospace" font-size="12" fill="#64748b">id · order_id · status</text>
+  </g>
+  <text x="400" y="460" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#94a3b8">reconstrucción de BD desde logs</text>
+</svg>

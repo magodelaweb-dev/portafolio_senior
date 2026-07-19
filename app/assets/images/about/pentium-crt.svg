@@ -19,5 +19,5 @@
     <rect x="575" y="375" width="20" height="20" rx="3"/>
     <rect x="605" y="375" width="20" height="20" rx="3"/>
   </g>
-  <text x="400" y="460" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#64748b">Imagen pendiente: PC Pentium 1 + monitor CRT</text>
+  <text x="400" y="460" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#64748b">PC Pentium 1 + monitor CRT</text>
 </svg>

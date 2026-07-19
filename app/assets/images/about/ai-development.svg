@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder: desarrollo asistido por IA y evolución tecnológica</title>
+  <desc id="desc">Ilustración provisional de un editor de código con IA a la izquierda y una línea de tiempo con C#, Laravel y Ruby on Rails a la derecha.</desc>
+  <rect width="800" height="500" fill="#0f172a"/>
+  <rect x="50" y="80" width="380" height="260" rx="10" fill="#111827" stroke="#334155" stroke-width="2"/>
+  <circle cx="80" cy="105" r="6" fill="#ef4444"/>
+  <circle cx="100" cy="105" r="6" fill="#f59e0b"/>
+  <circle cx="120" cy="105" r="6" fill="#22c55e"/>
+  <g font-family="monospace" font-size="14" fill="#64748b">
+    <text x="70" y="150">def calcular_total(items)</text>
+    <text x="90" y="172" fill="#a5b4fc">items.sum(&amp;:precio)</text>
+    <text x="70" y="194">end</text>
+  </g>
+  <rect x="70" y="215" width="330" height="70" rx="6" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="85" y="235" font-family="sans-serif" font-size="12" fill="#a5b4fc">Sugerencia IA</text>
+  <text x="85" y="255" font-family="monospace" font-size="12" fill="#c7d2fe">añadir validación de items vacíos</text>
+  <text x="85" y="272" font-family="monospace" font-size="12" fill="#c7d2fe">y manejo de precios nulos</text>
+  <g font-family="sans-serif" font-size="16" fill="#94a3b8">
+    <circle cx="500" cy="150" r="8" fill="#38bdf8"/>
+    <text x="520" y="156">C# — 3 años</text>
+    <line x1="500" y1="158" x2="500" y2="230" stroke="#334155" stroke-width="2"/>
+    <circle cx="500" cy="230" r="8" fill="#f97316"/>
+    <text x="520" y="236">Laravel — 3 años</text>
+    <line x1="500" y1="238" x2="500" y2="310" stroke="#334155" stroke-width="2"/>
+    <circle cx="500" cy="310" r="8" fill="#ef4444"/>
+    <text x="520" y="316">Ruby on Rails — 4 años</text>
+  </g>
+  <text x="400" y="460" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#94a3b8">desarrollo asistido por IA y evolución tecnológica</text>
+</svg>
