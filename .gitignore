@@ -4,6 +4,9 @@
 # belong in git's global ignore instead:
 # `$XDG_CONFIG_HOME/git/ignore` or `~/.config/git/ignore`
 
+# Windows NTFS zone marker left behind when copying files into WSL.
+*:Zone.Identifier
+
 # Ignore bundler config.
 /.bundle
 

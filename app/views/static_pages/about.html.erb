@@ -10,126 +10,47 @@
 
   <div class="prose-star space-y-6 text-slate-700">
     <figure class="my-8">
-      <%= image_tag "about/pentium-crt.svg",
-            alt: "Foto de una computadora de escritorio beige tipo torre Pentium 1, con monitor de tubo (CRT) y teclado mecánico",
+      <%= image_tag "about/pc.jpg",
+            alt: "Escritorio con monitor, teclado, ratón y altavoces, evocando una computadora de los primeros años de aprendizaje",
             class: "w-full rounded-xl border border-slate-200" %>
+      <figcaption class="mt-2 text-xs text-slate-400">
+        Foto de <%= link_to "P. L.", "https://unsplash.com/es/@partrickl?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText", target: "_blank", rel: "noopener" %>
+        en <%= link_to "Unsplash", "https://unsplash.com/es/fotos/un-escritorio-con-monitor-teclado-raton-y-altavoces-v0gWtGembqY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText", target: "_blank", rel: "noopener" %>
+      </figcaption>
     </figure>
 
     <p>
-      Empecé a programar a los 16 años en una Pentium 1, devorando revistas de algoritmos y libros
-      fotocopiados en una era donde la información no estaba a un clic de distancia. Mi gran tesoro
-      de la época era "La Biblia del Visual Basic", un tomo enorme que fotocopié por completo de la
-      casa de un pariente.
+      Empecé a programar a los 16 años en una Pentium 1, sin más recursos que revistas de algoritmos
+      y libros fotocopiados. Ese mismo ingenio autodidacta —simular una terminal DOS a lápiz en un
+      cuaderno a los 8 años, o resolver con Excel lo que aún no sabía programar— fue el motor de mi
+      primer gran hito: una aplicación de escritorio para automatizar liquidaciones judiciales, mi
+      verdadero bautismo de fuego en interfaces, bases de datos y despliegue de software.
     </p>
 
     <p>
-      Mi primer gran hito fue desarrollar una aplicación de escritorio para un profesional del poder
-      judicial, diseñada para automatizar el cálculo de liquidaciones que hasta entonces se ejecutaba
-      de forma estrictamente manual. Fue mi verdadero "bautismo de fuego" en la ingeniería de
-      software; allí aprendí a la fuerza conceptos fundamentales como el diseño de la interfaz de
-      usuario, la lógica del sistema, la gestión de bases de datos (con Access y MySQL), el proceso
-      de compilación y el manejo de entornos de desarrollo y producción. El ejecutable final pesaba
-      alrededor de 10MB, una enormidad que superaba la capacidad de los disquetes de 1.44MB de la
-      época.
+      De ahí expandí mi stack a tecnologías web y desarrollé sitios comerciales para colegios,
+      institutos y empresas de maquinaria pesada en Perú. Alrededor de 2011 construí una herramienta
+      de web scraping para extraer leads de Facebook a partir de puro análisis de patrones de texto,
+      sin APIs ni IA de por medio. Esa trayectoria resolviendo problemas con recursos limitados se
+      consolidó en la universidad, donde me gradué con honores, primer puesto en el orden de mérito
+      de Ingeniería Informática.
     </p>
 
     <figure class="my-8">
-      <%= image_tag "about/disquete-zip.svg",
-            alt: "Foto de un disquete de 1.44MB al lado de un disco Iomega ZIP de 100MB",
+      <%= image_tag "about/ucss_orden_merito.jpg",
+            alt: "Diploma de la UCSS que acredita el primer puesto en el orden de mérito de Ingeniería Informática",
             class: "w-full rounded-xl border border-slate-200" %>
     </figure>
 
-    <p>
-      ¿La solución? Conseguí un disco Iomega ZIP de 100MB para poder distribuir el software. Fue
-      toda una aventura logística y tecnológica para mí en ese momento.
-    </p>
-
     <section class="pt-6">
-      <h2 class="text-2xl font-bold tracking-tight text-slate-900">El ADN Autodidacta</h2>
+      <h2 class="text-2xl font-bold tracking-tight text-slate-900">El Choque con la Realidad Profesional</h2>
 
       <p class="mt-4">
-        Esta capacidad para aprender por mi cuenta nació mucho antes, en 2do de primaria. Mi papá me
-        llevó a una capacitación de DOS de su trabajo; sin una computadora al frente, usé un cuaderno
-        de 50 hojas y un lápiz para simular los comandos e inputs del sistema operativo, asimilando su
-        lógica interna.
-      </p>
-
-      <figure class="my-8">
-        <%= image_tag "about/cuaderno-dos.svg",
-              alt: "Foto de un cuaderno escolar de 50 hojas abierto con dibujos a lápiz que simulan una línea de comandos: C:\\>",
-              class: "w-full rounded-xl border border-slate-200" %>
-      </figure>
-
-      <p>
-        Años más tarde, esa misma estructura mental me sirvió para reparar mis propias computadoras y
-        para diseñar soluciones complejas de forma creativa, como un sistema contable en una versión
-        antigua de Excel. A falta de fórmulas avanzadas y sin saber aún programación, ideé un
-        ecosistema de múltiples tablas de cálculo interconectadas para resolver el problema. Esa
-        necesidad de romper limitaciones fue mi motor definitivo para aprender Visual Basic.
-      </p>
-    </section>
-
-    <section class="pt-6">
-      <h2 class="text-2xl font-bold tracking-tight text-slate-900">Ingenio frente a la evolución tecnológica</h2>
-
-      <p class="mt-4">
-        Con el tiempo expandí mi stack hacia tecnologías web (PHP, CSS, JS) y comencé a desarrollar
-        sitios comerciales en Perú para colegios, institutos, ferreterías y al menos tres empresas
-        distintas dedicadas a la comercialización y gestión de camiones y maquinaria pesada.
-      </p>
-
-      <figure class="my-8">
-        <%= image_tag "about/codigo-algoritmo.svg",
-              alt: "Captura conceptual de código de texto de un algoritmo, evocando la interfaz antigua de Facebook circa 2011",
-              class: "w-full rounded-xl border border-slate-200" %>
-      </figure>
-
-      <p>
-        Alrededor del año 2011, asumí el desafío de crear una herramienta de web scraping para
-        extraer comentarios y obtener leads (nombres y correos) de publicaciones propietarias en
-        Facebook. Sin las APIs modernas ni las herramientas de IA actuales, construí algoritmos
-        basados en patrones de texto puros para deducir identidades analizando la estructura de los
-        mensajes, usando expresiones lógicas y cruzando datos con los nombres de usuario. En esa
-        misma línea, automaticé un validador de correos electrónicos que interactuaba directamente
-        con el protocolo SMTP para evaluar las respuestas del servidor.
-      </p>
-
-      <p>
-        Toda esta trayectoria de resolver problemas complejos con recursos limitados se consolidó en
-        mi etapa académica, donde me gradué con honores obteniendo el Primer Puesto en Orden de
-        Mérito de la carrera de Ingeniería Informática.
-      </p>
-
-      <figure class="my-8">
-        <%= image_tag "about/graduacion-honores.svg",
-              alt: "Foto de mi diploma de honor, medalla del primer puesto de la universidad, o una imagen conceptual limpia de una graduación con honores",
-              class: "w-full rounded-xl border border-slate-200" %>
-      </figure>
-
-      <p class="font-medium text-slate-900">
-        Y acá empieza mi historia profesional:
-      </p>
-    </section>
-
-    <section class="pt-6">
-      <h2 class="text-2xl font-bold tracking-tight text-slate-900">El Siguiente Nivel: El Choque con la Realidad Profesional</h2>
-
-      <p class="mt-4">
-        Ingresar al mundo corporativo fue un cambio total de paradigma. Las políticas, las metodologías, el trabajo en equipo y los estrictos estándares de calidad transformaron por completo mi flujo de trabajo. Pasé de las soluciones individuales al desarrollo colaborativo a gran escala: herramientas de comunicación como Slack y Google Workspace; gestión ágil de proyectos en Trello, Asana y Jira; flujos de Git avanzados mediante Pull Requests; migraciones de bases de datos versionadas desde el código; pruebas automatizadas y estándares orientados a la seguridad.
-      </p>
-
-      <p>
-        Ya no bastaba con diseñar algo que simplemente funcionara; ahora el software debía ser mantenible, escalable y seguro según los estándares de la industria. Aprendí a consumir APIs de manera eficiente y a integrar librerías y paquetes bajo arquitecturas automatizadas.
-      </p>
-
-      <figure class="my-8">
-        <%= image_tag "about/git-pr-flow.svg",
-              alt: "Una ilustración conceptual minimalista o captura de pantalla que muestre un flujo de Git/GitHub moderno con ramas y Pull Requests, o un tablero ágil de Jira",
-              class: "w-full rounded-xl border border-slate-200" %>
-      </figure>
-
-      <p>
-        Sin embargo, esa experiencia empírica y autodidacta de mi juventud no fue en vano. Hubo momentos críticos donde la creatividad y el pensamiento "fuera de la caja" salvaron el día. El ejemplo más claro fue cuando reconstruí una base de datos de producción completa desde cero, analizando y extrayendo patrones directamente de los archivos de logs del servidor, luego de que nuestras instancias de AWS se perdieran por completo debido a una mala gestión externa.
+        Entrar al mundo corporativo fue un cambio de paradigma: de soluciones individuales al
+        desarrollo colaborativo a gran escala, con estándares de calidad y seguridad que ya no eran
+        opcionales. Esa base autodidacta demostró su valor cuando reconstruí una base de datos de
+        producción completa desde cero, extrayendo patrones directamente de los logs del servidor
+        después de que perdiéramos nuestras instancias de AWS por una mala gestión externa.
       </p>
 
       <figure class="my-8">
@@ -143,11 +64,14 @@
       <h2 class="text-2xl font-bold tracking-tight text-slate-900">Liderazgo, Escala y la Era de la Inteligencia Artificial</h2>
 
       <p class="mt-4">
-        La combinación de la base científica de la universidad con el rigor técnico del campo me permitió acelerar mi crecimiento profesional hacia roles de alta dirección. Tuve la oportunidad de ejercer como CTO en tres startups tecnológicas: dos peruanas de sectores y modelos de negocio completamente distintos, y una española, liderando equipos multidisciplinarios y desplegando proyectos con éxito en mercados competitivos.
-      </p>
-
-      <p>
-        Mi etapa más reciente, en Buk, fue un ejercicio distinto: pasé de tener autoridad formal y permanente a un liderazgo por misión, con varios niveles jerárquicos por encima y ninguna estructura fija debajo. Como Champion dentro de una organización transnacional de gran envergadura, lideraba equipos de 2 o 3 tripulantes con cierta autoridad sobre ellos, pero tanto el rol de Champion como los tripulantes eran rotativos y existían solo para esa misión puntual; la siguiente misión partía de cero, con su propio equipo. A lo largo de cuatro años en la compañía, he liderado más de diez misiones de distinta complejidad y escala técnica, impactando en más de cuatro módulos core de la plataforma.
+        Esa base me llevó a roles de alta dirección: fui CTO en tres startups tecnológicas (dos
+        peruanas, una española), liderando equipos multidisciplinarios en mercados competitivos. Mi
+        etapa más reciente, en Buk, fue un ejercicio de liderazgo distinto: como Champion dentro de
+        una organización transnacional, lideré más de diez misiones técnicas con equipos rotativos de
+        2 o 3 tripulantes —sin autoridad formal permanente ni jerarquía fija—, con la responsabilidad
+        sostenida en influencia técnica más que en cargo. En paralelo, dediqué buena parte de ese
+        tiempo a mentorías, tanto a los nuevos ingresos del equipo como a cualquier persona de Buk que
+        lo necesitara.
       </p>
 
       <figure class="my-8">
@@ -157,28 +81,21 @@
       </figure>
 
       <p>
-        En paralelo a las misiones, dediqué buena parte de ese tiempo a charlas técnicas y mentorías: acompañando a los nuevos ingresos del equipo durante su onboarding, y también a cualquier persona de Buk que lo necesitara, fuera o no de mi equipo, a través de los programas internos de mentoría de la compañía.
-      </p>
-
-      <figure class="my-8">
-        <%= image_tag "about/mentoring.svg",
-              alt: "Ilustración conceptual de una sesión de mentoría o charla técnica, una persona guiando a otra frente a una pizarra o pantalla compartida",
-              class: "w-full rounded-xl border border-slate-200" %>
-      </figure>
-
-      <p>
-        El mundo de la tecnología evoluciona a un ritmo vertiginoso. De hecho, en los últimos doce meses no he escrito directamente una sola línea de código manual; todo lo he diseñado, estructurado y desarrollado a través de Inteligencia Artificial. Es precisamente aquí donde la trayectoria marca la diferencia: la IA es una herramienta potente, pero requiere la dirección correcta, una arquitectura sólida en la mente del ingeniero y la experiencia necesaria para evaluar los resultados con criterio crítico.
+        El mundo de la tecnología evoluciona a un ritmo vertiginoso. De hecho, en los últimos doce
+        meses no he escrito directamente una sola línea de código manual; todo lo he diseñado,
+        estructurado y desarrollado a través de Inteligencia Artificial. Es aquí donde la trayectoria
+        marca la diferencia: la IA es una herramienta potente, pero requiere dirección, arquitectura
+        sólida en la mente del ingeniero y criterio para evaluar los resultados. Mi propia trayectoria
+        —tres años en C#, dos en Laravel, cuatro consolidándome en Ruby on Rails— confirma que los
+        lenguajes cambian, pero la capacidad de adaptación y los principios de buena ingeniería
+        permanecen.
       </p>
 
       <figure class="my-8">
         <%= image_tag "about/ai-development.svg",
-              alt: "Una captura de pantalla estética de un entorno de desarrollo moderno (como VS Code) mostrando código asistido por IA, junto a un gráfico minimalista de mi evolución tecnológica: C# (3 años) → Laravel (3 años) → Ruby on Rails (4 años)",
+              alt: "Una terminal de desarrollo moderna mostrando varios agentes de IA trabajando en paralelo sobre distintas tareas del mismo proyecto: refactor, tests y documentación",
               class: "w-full rounded-xl border border-slate-200" %>
       </figure>
-
-      <p>
-        Sin menosprecio de la técnica, considero que la habilidad más valiosa de un ingeniero es su capacidad de adaptación. Mi propia trayectoria lo demuestra: tres años dominando C#, otros tres pivotando a Laravel y mis últimos cuatro años consolidándome en Ruby on Rails. Los lenguajes y las herramientas cambian constantemente, pero los principios de la buena programación permanecen estables, siempre alineados al objetivo de construir productos de alta calidad con la mayor eficiencia técnica y rentabilidad para el negocio.
-      </p>
     </section>
   </div>
 
