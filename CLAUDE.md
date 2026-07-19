@@ -43,6 +43,23 @@ Local CI (`bin/ci` → `config/ci.rb`) and `.github/workflows/ci.yml` are two in
 definitions of the same pipeline (setup, rubocop, brakeman, bundler-audit, importmap audit,
 tests, seed replant); keep both in sync if you change one.
 
+## Git workflow
+
+Do not commit directly to `main`. Simulate a normal team workflow:
+
+1. `git pull` on `main` before starting any work, to sync with the remote.
+2. Create a branch off `main` named `<type>/<short-kebab-description>`, e.g.
+   `feat/about-page-rewrite`, `fix/svg-alt-text`, `chore/update-loofah`. Types follow
+   [Conventional Commits](https://www.conventionalcommits.org/): `feat`, `fix`, `refactor`,
+   `docs`, `test`, `style`, `chore`, `ci`, `perf`. Include an issue/ticket reference in the
+   branch name if one exists (`fix/123-svg-alt-text`); omit it otherwise.
+3. Commit on that branch using Conventional Commits messages: `<type>(<optional scope>): <summary>`,
+   imperative mood, e.g. `feat(about): condense bio copy for recruiters`. Body explains *why*,
+   not *what* — the diff already shows what changed.
+4. Push the branch and open a PR against `main` with `gh pr create` — never push straight to
+   `main`. The PR description follows `.github/pull_request_template.md` (Summary/Why, Changes,
+   Test plan). Do not merge the PR unless the user explicitly asks.
+
 ## Architecture
 
 **Data model**: SQLite with Rails 8's multi-database layout — separate physical databases for
