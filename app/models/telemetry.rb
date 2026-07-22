@@ -31,6 +31,7 @@ class Telemetry
     def stats
       data = samples
       durations = data.map(&:duration)
+      server_errors = data.count { |s| s.status.to_i >= 500 }
 
       {
         count: data.size,
@@ -38,6 +39,11 @@ class Telemetry
         p95: percentile(durations, 95),
         max: (durations.max || 0.0).round(1),
         avg_db: average(data.map(&:db_runtime)),
+        server_errors: server_errors,
+        client_errors: data.count { |s| (400..499).cover?(s.status.to_i) },
+        error_rate: data.empty? ? 0.0 : (server_errors * 100.0 / data.size).round(1),
+        rpm: data.count { |s| s.at > 60.seconds.ago },
+        history: durations.last(60),
         recent: data.last(10).reverse
       }
     end
