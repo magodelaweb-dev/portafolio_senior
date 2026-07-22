@@ -18,10 +18,17 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "index hides admin controls and shows login link when unauthenticated" do
+  test "index hides admin controls and login link when unauthenticated" do
     get projects_url
-    assert_select "a[href=?]", new_session_path, text: "Entrar"
+    assert_select "a[href=?]", new_session_path, count: 0
     assert_select "a[href=?]", new_project_path, count: 0
+  end
+
+  test "index shows contact channels" do
+    get projects_url
+    assert_select "a[href=?]", "https://www.linkedin.com/in/magodelaweb/"
+    assert_select "a[href=?]", "mailto:arturo@magodelaweb.com"
+    assert_select "a[href=?]", "/cv-arturo-martinez.pdf"
   end
 
   test "index shows new-project control and logout when authenticated" do

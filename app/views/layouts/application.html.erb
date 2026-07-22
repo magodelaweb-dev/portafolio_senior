@@ -2,11 +2,22 @@
 <html lang="es">
   <head>
     <meta charset="utf-8">
-    <title><%= content_for(:title) || "Portafolio Senior" %></title>
+    <title><%= content_for(:title) || "Arturo Martinez · Ingeniero de Software Senior" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Portafolio Senior">
     <meta name="mobile-web-app-capable" content="yes">
+
+    <% meta_description = content_for(:meta_description) ||
+         "Portafolio de Arturo Martinez, ingeniero de software senior: estudios de caso de arquitectura (FinTech, IoT, SaaS multi-tenant) con metodología STAR, trade-offs de ingeniería y un panel de observabilidad en vivo de la propia aplicación." %>
+    <meta name="description" content="<%= meta_description %>">
+    <meta property="og:site_name" content="Arturo Martinez · Portafolio">
+    <meta property="og:title" content="<%= content_for(:title) || "Arturo Martinez · Ingeniero de Software Senior" %>">
+    <meta property="og:description" content="<%= meta_description %>">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:image" content="<%= "#{request.base_url}/icon.png" %>">
+    <meta name="twitter:card" content="summary">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -38,8 +49,6 @@
           <a href="https://github.com/magodelaweb-dev/portafolio_senior" class="transition hover:text-indigo-600">GitHub</a>
           <% if authenticated? %>
             <%= button_to "Salir", session_path, method: :delete, class: "cursor-pointer font-medium text-slate-600 transition hover:text-indigo-600" %>
-          <% else %>
-            <%= link_to "Entrar", new_session_path, class: "transition hover:text-indigo-600" %>
           <% end %>
         </div>
       </nav>
@@ -50,8 +59,13 @@
     </main>
 
     <footer class="border-t border-slate-200 py-8">
-      <div class="mx-auto max-w-5xl px-5 text-sm text-slate-500">
-        &copy; <%= Date.current.year %> Arturo Martinez &middot; Construido con Rails <%= Rails::VERSION::STRING %> y Tailwind CSS
+      <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-5 text-sm text-slate-500">
+        <span>&copy; <%= Date.current.year %> Arturo Martinez &middot; Construido con Rails <%= Rails::VERSION::STRING %> y Tailwind CSS</span>
+        <span class="flex items-center gap-5 font-medium text-slate-600">
+          <a href="<%= contact_linkedin_url %>" target="_blank" rel="noopener" class="transition hover:text-indigo-600">LinkedIn</a>
+          <a href="mailto:<%= contact_email %>" class="transition hover:text-indigo-600">Email</a>
+          <a href="<%= contact_cv_path %>" download class="transition hover:text-indigo-600">CV</a>
+        </span>
       </div>
     </footer>
   </body>

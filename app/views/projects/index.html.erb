@@ -1,14 +1,15 @@
 <% content_for :title, "Proyectos · Arturo Martinez" %>
 
 <section class="mb-14">
-  <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-indigo-600">Portafolio de Arquitectura y Diseño de Sistemas</p>
+  <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-indigo-600">Ingeniero de Software Senior · Arquitectura y Liderazgo Técnico</p>
   <h1 class="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
-    Análisis de diseño y arquitectura de software orientados a la resolución de problemas de negocio.
+    Sistemas en producción, decisiones de arquitectura y resultados medibles.
   </h1>
   <p class="mt-4 max-w-2xl text-lg text-slate-600">
-    Cada estudio de caso está documentado mediante la metodología <strong>STAR</strong> (Situación, Tarea, Acción,
-    Resultado), exponiendo los compromisos de ingeniería (trade-offs), las decisiones técnicas y su impacto en
-    métricas clave de rendimiento.
+    Cuatro estudios de caso reales —SaaS multi-tenant, FinTech con certificación PCI-DSS, IoT y
+    recuperación ante desastres— documentados con metodología <strong>STAR</strong>: las decisiones, sus
+    <em>trade-offs</em> y el impacto en métricas de negocio. Y como evidencia en vivo, este mismo sitio
+    corre en producción y <%= link_to "se monitorea a sí mismo", ops_path, class: "font-medium text-indigo-600 hover:underline" %>.
   </p>
 </section>
 
@@ -33,3 +34,5 @@
     <% end %>
   </div>
 <% end %>
+
+<%= render "shared/contact" %>
