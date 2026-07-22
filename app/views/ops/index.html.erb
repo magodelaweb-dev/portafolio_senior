@@ -8,6 +8,11 @@
       Telemetría en tiempo real: latencia de peticiones, consumo de bases de datos SQLite y estado de
       procesos en segundo plano (<strong>Solid Queue</strong>). Actualización dinámica optimizada mediante Turbo y Stimulus.
     </p>
+    <p class="mt-3 max-w-2xl text-sm text-slate-500">
+      Lo que estás viendo no es una maqueta: es la telemetría real de la aplicación que te está
+      sirviendo esta página. Operar en producción con observabilidad —no solo escribir código— es
+      parte de lo que este portafolio quiere demostrar.
+    </p>
   </div>
   <% if authenticated? %>
     <%= button_to "Encolar job de demo", ops_enqueue_path,

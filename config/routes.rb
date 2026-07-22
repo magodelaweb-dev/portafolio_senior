@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   # Live operations dashboard ("the app alive").
   get "ops" => "ops#index", as: :ops
+  get "monitoreo" => redirect("/ops")
   get "ops/metrics" => "ops#metrics", as: :ops_metrics
   post "ops/enqueue" => "ops#enqueue", as: :ops_enqueue
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

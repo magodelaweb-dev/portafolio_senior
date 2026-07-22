@@ -1,4 +1,5 @@
 <% content_for :title, "#{@project.title} · Arturo Martinez" %>
+<% content_for :meta_description, @project.subtitle if @project.subtitle.present? %>
 
 <div class="mx-auto max-w-3xl">
   <% if notice.present? %>
