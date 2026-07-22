@@ -10,17 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_15_184930) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_22_204726) do
   create_table "projects", force: :cascade do |t|
     t.text "context"
     t.datetime "created_at", null: false
     t.string "github_url"
     t.text "outcome"
+    t.integer "position", default: 0, null: false
     t.text "problem"
     t.text "solution"
     t.string "subtitle"
     t.string "title"
     t.datetime "updated_at", null: false
+    t.index ["position"], name: "index_projects_on_position"
   end
 
   create_table "sessions", force: :cascade do |t|

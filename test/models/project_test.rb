@@ -32,9 +32,12 @@ class ProjectTest < ActiveSupport::TestCase
     assert_not Project.new(valid_attributes.merge(github_url: "not-a-url")).valid?
   end
 
-  test "recent scope orders by created_at descending" do
-    older = Project.create!(valid_attributes.merge(title: "Older", created_at: 2.days.ago))
-    newer = Project.create!(valid_attributes.merge(title: "Newer", created_at: 1.day.ago))
-    assert_equal [ newer, older ], Project.where(title: %w[Older Newer]).recent.to_a
+  test "ordered scope orders by position ascending, then created_at descending" do
+    older = Project.create!(valid_attributes.merge(title: "Older", position: 1, created_at: 2.days.ago))
+    newer = Project.create!(valid_attributes.merge(title: "Newer", position: 1, created_at: 1.day.ago))
+    first = Project.create!(valid_attributes.merge(title: "First", position: 0, created_at: 3.days.ago))
+
+    assert_equal [ first, newer, older ],
+      Project.where(title: %w[Older Newer First]).ordered.to_a
   end
 end

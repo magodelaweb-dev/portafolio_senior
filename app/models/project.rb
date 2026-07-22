@@ -14,5 +14,5 @@ class Project < ApplicationRecord
               message: "must be a valid http(s) URL"
             }
 
-  scope :recent, -> { order(created_at: :desc) }
+  scope :ordered, -> { order(:position, created_at: :desc) }
 end

@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.recent
+    @projects = Project.ordered
   end
 
   # GET /projects/1 or /projects/1.json
@@ -66,6 +66,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.expect(project: [ :title, :subtitle, :context, :problem, :solution, :outcome, :github_url ])
+      params.expect(project: [ :title, :subtitle, :context, :problem, :solution, :outcome, :github_url, :position ])
     end
 end
