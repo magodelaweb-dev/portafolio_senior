@@ -3,17 +3,17 @@
 
 <article class="mx-auto max-w-3xl">
   <header class="mb-14">
-    <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-indigo-600">Sobre mí</p>
+    <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400">Sobre mí</p>
     <h1 class="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
       Programador por Pasión, Ingeniero por Disciplina
     </h1>
   </header>
 
-  <div class="prose-star space-y-6 text-slate-700">
+  <div class="prose-star space-y-6 text-slate-700 dark:text-slate-300">
     <figure class="my-8">
       <%= image_tag "about/pc.jpg",
             alt: "Escritorio con monitor, teclado, ratón y altavoces, evocando una computadora de los primeros años de aprendizaje",
-            class: "w-full rounded-xl border border-slate-200" %>
+            class: "w-full rounded-xl border border-slate-200 dark:border-slate-800" %>
       <figcaption class="mt-2 text-xs text-slate-400">
         Foto de <%= link_to "P. L.", "https://unsplash.com/es/@partrickl?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText", target: "_blank", rel: "noopener" %>
         en <%= link_to "Unsplash", "https://unsplash.com/es/fotos/un-escritorio-con-monitor-teclado-raton-y-altavoces-v0gWtGembqY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText", target: "_blank", rel: "noopener" %>
@@ -40,11 +40,11 @@
     <figure class="my-8">
       <%= image_tag "about/ucss_orden_merito.jpg",
             alt: "Diploma de la UCSS que acredita el primer puesto en el orden de mérito de Ingeniería Informática",
-            class: "w-full rounded-xl border border-slate-200" %>
+            class: "w-full rounded-xl border border-slate-200 dark:border-slate-800" %>
     </figure>
 
     <section class="pt-6">
-      <h2 class="text-2xl font-bold tracking-tight text-slate-900">El Choque con la Realidad Profesional</h2>
+      <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">El Choque con la Realidad Profesional</h2>
 
       <p class="mt-4">
         Entrar al mundo corporativo fue un cambio de paradigma: de soluciones individuales al
@@ -57,12 +57,12 @@
       <figure class="my-8">
         <%= image_tag "about/logs-database.svg",
               alt: "Una composición visual dramática pero profesional: líneas de texto plano de logs de servidor con marcas de tiempo difuminándose en una estructura de base de datos relacional sólida",
-              class: "w-full rounded-xl border border-slate-200" %>
+              class: "w-full rounded-xl border border-slate-200 dark:border-slate-800" %>
       </figure>
     </section>
 
     <section class="pt-6">
-      <h2 class="text-2xl font-bold tracking-tight text-slate-900">Liderazgo, Escala y la Era de la Inteligencia Artificial</h2>
+      <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Liderazgo, Escala y la Era de la Inteligencia Artificial</h2>
 
       <p class="mt-4">
         Esa base me llevó a roles de alta dirección: fui CTO en tres startups tecnológicas (dos
@@ -78,7 +78,7 @@
       <figure class="my-8">
         <%= image_tag "about/leadership-ecosystems.svg",
               alt: "Ilustración conceptual comparando dos estilos de liderazgo: una jerarquía vertical y permanente típica de un CTO en startups, y una estructura horizontal y rotativa por misión, como Champion en Buk",
-              class: "w-full rounded-xl border border-slate-200" %>
+              class: "w-full rounded-xl border border-slate-200 dark:border-slate-800" %>
       </figure>
 
       <p>
@@ -89,8 +89,8 @@
         la velocidad de ejecución, pero no sustituye el criterio: saber qué pedir, detectar cuándo
         un resultado es incorrecto y sostener la coherencia del sistema sigue siendo trabajo del
         ingeniero. Este mismo sitio está construido así: su
-        <%= link_to "código es público", "https://github.com/magodelaweb-dev/portafolio_senior", target: "_blank", rel: "noopener", class: "font-medium text-indigo-600 hover:underline" %>
-        y su <%= link_to "panel de operaciones en vivo", ops_path, class: "font-medium text-indigo-600 hover:underline" %>
+        <%= link_to "código es público", "https://github.com/magodelaweb-dev/portafolio_senior", target: "_blank", rel: "noopener", class: "font-medium text-teal-600 hover:underline" %>
+        y su <%= link_to "panel de operaciones en vivo", ops_path, class: "font-medium text-teal-600 hover:underline" %>
         muestra el resultado funcionando en producción. Mi trayectoria —tres años en C#, dos en
         Laravel, cuatro consolidándome en Ruby on Rails— confirma que las herramientas cambian,
         pero los principios de buena ingeniería permanecen.
@@ -99,15 +99,15 @@
       <figure class="my-8">
         <%= image_tag "about/ai-development.svg",
               alt: "Una terminal de desarrollo moderna mostrando varios agentes de IA trabajando en paralelo sobre distintas tareas del mismo proyecto: refactor, tests y documentación",
-              class: "w-full rounded-xl border border-slate-200" %>
+              class: "w-full rounded-xl border border-slate-200 dark:border-slate-800" %>
       </figure>
     </section>
   </div>
 
   <%= render "shared/contact" %>
 
-  <div class="mt-16 border-t border-slate-200 pt-8">
-    <%= link_to root_path, class: "inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition hover:text-indigo-600" do %>
+  <div class="mt-16 border-t border-slate-200 pt-8 dark:border-slate-800">
+    <%= link_to root_path, class: "inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400" do %>
       <span aria-hidden="true">&rarr;</span> Ver proyectos
     <% end %>
   </div>

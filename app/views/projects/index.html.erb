@@ -1,35 +1,35 @@
 <% content_for :title, "Proyectos · Arturo Martinez" %>
 
 <section class="mb-14">
-  <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-indigo-600">Ingeniero de Software Senior · Arquitectura y Liderazgo Técnico</p>
+  <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400">Ingeniero de Software Senior · Arquitectura y Liderazgo Técnico</p>
   <h1 class="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
     Sistemas en producción, decisiones de arquitectura y resultados medibles.
   </h1>
-  <p class="mt-4 max-w-2xl text-lg text-slate-600">
+  <p class="mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
     Cuatro estudios de caso reales —SaaS multi-tenant, FinTech con certificación PCI-DSS, IoT y
     recuperación ante desastres— documentados con metodología <strong>STAR</strong>: las decisiones, sus
     <em>trade-offs</em> y el impacto en métricas de negocio. Y como evidencia en vivo, este mismo sitio
-    corre en producción y <%= link_to "se monitorea a sí mismo", ops_path, class: "font-medium text-indigo-600 hover:underline" %>.
+    corre en producción y <%= link_to "se monitorea a sí mismo", ops_path, class: "font-medium text-teal-600 hover:underline dark:text-teal-400" %>.
   </p>
 </section>
 
 <% if notice.present? %>
-  <p class="mb-6 inline-block rounded-md bg-emerald-50 px-3 py-2 font-medium text-emerald-600" id="notice"><%= notice %></p>
+  <p class="mb-6 inline-block rounded-md bg-emerald-50 px-3 py-2 font-medium text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300" id="notice"><%= notice %></p>
 <% end %>
 
 <div id="projects" class="grid gap-6 sm:grid-cols-2">
   <% if @projects.any? %>
     <%= render partial: "projects/card", collection: @projects, as: :project %>
   <% else %>
-    <div class="col-span-full rounded-xl border border-dashed border-slate-300 p-12 text-center text-slate-500">
-      Aún no hay proyectos.<% if authenticated? %> <%= link_to "Crea el primero", new_project_path, class: "font-medium text-indigo-600 hover:underline" %>.<% end %>
+    <div class="col-span-full rounded-xl border border-dashed border-slate-300 p-12 text-center text-slate-500 dark:border-slate-700 dark:text-slate-400">
+      Aún no hay proyectos.<% if authenticated? %> <%= link_to "Crea el primero", new_project_path, class: "font-medium text-teal-600 hover:underline dark:text-teal-400" %>.<% end %>
     </div>
   <% end %>
 </div>
 
 <% if authenticated? %>
   <div class="mt-10">
-    <%= link_to new_project_path, class: "inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition hover:text-indigo-600" do %>
+    <%= link_to new_project_path, class: "inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400" do %>
       + Nuevo estudio de caso
     <% end %>
   </div>

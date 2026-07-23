@@ -15,10 +15,10 @@ module OpsHelper
 
   def ops_signal_badge(level)
     label, classes = {
-      ok: [ "Saludable", "bg-emerald-100 text-emerald-700" ],
-      warn: [ "Atención", "bg-amber-100 text-amber-700" ],
-      crit: [ "Crítico", "bg-red-100 text-red-700" ],
-      none: [ "n/d", "bg-slate-100 text-slate-500" ]
+      ok: [ "Saludable", "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300" ],
+      warn: [ "Atención", "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300" ],
+      crit: [ "Crítico", "bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300" ],
+      none: [ "n/d", "bg-slate-100 text-slate-500 dark:bg-slate-500/15 dark:text-slate-400" ]
     }.fetch(level)
 
     tag.span(label, class: "rounded px-1.5 py-0.5 text-xs font-semibold #{classes}")
