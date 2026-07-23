@@ -197,10 +197,12 @@ case_studies = [
   },
   {
     title: "Modernización legacy, versionado de datos y despliegue cloud en tiempo récord",
-    subtitle: "Agroinvesting, 2020 — De un archivo ZIP desorganizado a una plataforma de crowdfunding en producción en 48 horas y monetizando en 4 meses",
+    subtitle: "Agrocredit Corporation SAC · AgroInvesting, 2020 — De un archivo ZIP desorganizado a una plataforma de inversión agrícola en producción en 48 horas y monetizando en 5 meses",
     context: <<~MD,
-      El proyecto de **Agroinvesting** existía únicamente como un archivo comprimido ZIP
-      con código Laravel 5.6 incompleto y *dumps* de MySQL desestructurados.
+      El proyecto de **AgroInvesting** — plataforma de inversión y financiamiento para
+      una agricultura climáticamente inteligente, de **Agrocredit Corporation SAC** —
+      existía únicamente como un archivo comprimido ZIP con código Laravel 5.6
+      incompleto y *dumps* de MySQL desestructurados.
 
       - **Sin repositorios Git**, documentación ni control de cambios.
       - **Sin infraestructura en la nube**.
@@ -251,7 +253,7 @@ case_studies = [
       |--------------------------|--------------------------------|-----------------------------------------------|
       | Tiempo de despliegue      | Sin infraestructura            | 2 días a la primera versión en producción     |
       | Control de código y BD    | 0% (archivos ZIP y dumps SQL)  | 100% versionado (Git + migraciones Laravel)   |
-      | Tiempo a monetización     | Inoperativo                    | 4 meses (producto completo y generando ingresos) |
+      | Tiempo a monetización     | Inoperativo                    | 5 meses (producto completo y generando ingresos) |
 
       Se transformó un prototipo abandonado e inestable en un **producto SaaS
       funcional, seguro y rentable** en el mercado de inversiones agrícolas.
@@ -259,10 +261,12 @@ case_studies = [
   }
 ]
 
+# The seed file is the source of truth for case-study content: existing
+# records (matched by title) are updated in place, so content edits here
+# propagate to already-seeded databases on the next db:seed run.
 case_studies.each_with_index do |attrs, index|
-  Project.find_or_create_by!(title: attrs[:title]) do |project|
-    project.assign_attributes(attrs.merge(position: index))
-  end.update!(position: index)
+  Project.find_or_initialize_by(title: attrs[:title])
+         .update!(attrs.merge(position: index))
 end
 
 puts "Seeded #{Project.count} project case studies."
