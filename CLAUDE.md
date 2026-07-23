@@ -9,7 +9,9 @@ Responde siempre en español en este proyecto.
 ## Project
 
 Rails 8.1 / Ruby 3.4.10 portfolio app. Public-facing project showcase (`Project` model, STAR-format
-case studies) plus a password-authenticated `/ops` live operations dashboard for the app itself.
+case studies) plus a `/ops` live operations dashboard for the app itself. The dashboard is
+**publicly readable on purpose** — it is part of what the portfolio showcases — so `index` and
+`metrics` opt out of authentication; only its mutations require a session.
 
 Per the README, this is deliberately a **pragmatic monolith**: SQLite (not Postgres/MySQL) even in
 production, and Solid Queue/Solid Cache instead of Redis, to keep the app runnable on minimal
