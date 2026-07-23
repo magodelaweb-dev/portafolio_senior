@@ -19,7 +19,9 @@ ActiveSupport::Notifications.subscribe("process_action.action_controller") do |*
       duration: event.duration.round(1),
       db_runtime: (payload[:db_runtime] || 0.0).round(1),
       view_runtime: (payload[:view_runtime] || 0.0).round(1),
-      at: event.end
+      # event.end is a monotonic-clock Float in modern Rails; the dashboard
+      # needs wall-clock Times (rpm compares against 60.seconds.ago).
+      at: Time.current
     )
   )
 end

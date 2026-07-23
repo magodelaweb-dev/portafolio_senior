@@ -25,8 +25,18 @@ module Ops
         ruby: RUBY_VERSION,
         env: Rails.env,
         pid: Process.pid,
-        uptime: uptime
+        uptime: uptime,
+        memory_mb: memory_mb
       }
+    end
+
+    # Resident memory of this process in MB, read from /proc (Linux-only,
+    # which matches every environment this app runs on). nil elsewhere.
+    def memory_mb
+      line = File.foreach("/proc/self/status").find { |l| l.start_with?("VmRSS:") }
+      line && (line.split[1].to_f / 1024).round
+    rescue SystemCallError, IOError
+      nil
     end
 
     def uptime
