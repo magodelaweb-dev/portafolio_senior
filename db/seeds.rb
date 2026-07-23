@@ -197,10 +197,12 @@ case_studies = [
   },
   {
     title: "Modernización legacy, versionado de datos y despliegue cloud en tiempo récord",
-    subtitle: "Agroinvesting, 2020 — De un archivo ZIP desorganizado a una plataforma de crowdfunding en producción en 48 horas y monetizando en 5 meses",
+    subtitle: "Agrocredit Corporation SAC · AgroInvesting, 2020 — De un archivo ZIP desorganizado a una plataforma de inversión agrícola en producción en 48 horas y monetizando en 5 meses",
     context: <<~MD,
-      El proyecto de **Agroinvesting** existía únicamente como un archivo comprimido ZIP
-      con código Laravel 5.6 incompleto y *dumps* de MySQL desestructurados.
+      El proyecto de **AgroInvesting** — plataforma de inversión y financiamiento para
+      una agricultura climáticamente inteligente, de **Agrocredit Corporation SAC** —
+      existía únicamente como un archivo comprimido ZIP con código Laravel 5.6
+      incompleto y *dumps* de MySQL desestructurados.
 
       - **Sin repositorios Git**, documentación ni control de cambios.
       - **Sin infraestructura en la nube**.
