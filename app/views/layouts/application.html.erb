@@ -26,6 +26,8 @@
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -35,20 +37,20 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
-    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur">
+  <body class="min-h-screen bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-950/80">
       <nav class="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
         <%= link_to root_path, class: "flex items-center gap-2 font-semibold tracking-tight" do %>
-          <span class="grid h-8 w-8 place-items-center rounded-lg bg-indigo-600 text-sm font-bold text-white">AM</span>
+          <span class="grid h-8 w-8 place-items-center rounded-lg bg-teal-600 text-sm font-bold text-white">AM</span>
           <span>Arturo Martinez</span>
         <% end %>
-        <div class="flex items-center gap-6 text-sm font-medium text-slate-600">
-          <%= link_to "Proyectos", root_path, class: "transition hover:text-indigo-600" %>
-          <%= link_to "Sobre mí", about_path, class: "transition hover:text-indigo-600" %>
-          <%= link_to "Operaciones", ops_path, class: "transition hover:text-indigo-600" %>
-          <a href="https://github.com/magodelaweb-dev/portafolio_senior" target="_blank" rel="noopener" class="transition hover:text-indigo-600">Código del sitio</a>
+        <div class="flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
+          <%= link_to "Proyectos", root_path, class: "transition hover:text-teal-600 dark:hover:text-teal-400" %>
+          <%= link_to "Sobre mí", about_path, class: "transition hover:text-teal-600 dark:hover:text-teal-400" %>
+          <%= link_to "Operaciones", ops_path, class: "transition hover:text-teal-600 dark:hover:text-teal-400" %>
+          <a href="https://github.com/magodelaweb-dev/portafolio_senior" target="_blank" rel="noopener" class="transition hover:text-teal-600 dark:hover:text-teal-400">Código del sitio</a>
           <% if authenticated? %>
-            <%= button_to "Salir", session_path, method: :delete, class: "cursor-pointer font-medium text-slate-600 transition hover:text-indigo-600" %>
+            <%= button_to "Salir", session_path, method: :delete, class: "cursor-pointer font-medium text-slate-600 transition hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-400" %>
           <% end %>
         </div>
       </nav>
@@ -58,13 +60,13 @@
       <%= yield %>
     </main>
 
-    <footer class="border-t border-slate-200 py-8">
-      <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-5 text-sm text-slate-500">
+    <footer class="border-t border-slate-200 py-8 dark:border-slate-800">
+      <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-5 text-sm text-slate-500 dark:text-slate-400">
         <span>&copy; <%= Date.current.year %> Arturo Martinez &middot; Construido con Rails <%= Rails::VERSION::STRING %> y Tailwind CSS</span>
-        <span class="flex items-center gap-5 font-medium text-slate-600">
-          <a href="<%= contact_linkedin_url %>" target="_blank" rel="noopener" class="transition hover:text-indigo-600">LinkedIn</a>
-          <a href="mailto:<%= contact_email %>" class="transition hover:text-indigo-600">Email</a>
-          <a href="<%= contact_cv_path %>" download class="transition hover:text-indigo-600">CV</a>
+        <span class="flex items-center gap-5 font-medium text-slate-600 dark:text-slate-300">
+          <a href="<%= contact_linkedin_url %>" target="_blank" rel="noopener" class="transition hover:text-teal-600 dark:hover:text-teal-400">LinkedIn</a>
+          <a href="mailto:<%= contact_email %>" class="transition hover:text-teal-600 dark:hover:text-teal-400">Email</a>
+          <a href="<%= contact_cv_path %>" download class="transition hover:text-teal-600 dark:hover:text-teal-400">CV</a>
         </span>
       </div>
     </footer>

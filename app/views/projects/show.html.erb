@@ -3,20 +3,20 @@
 
 <div class="mx-auto max-w-3xl">
   <% if notice.present? %>
-    <p class="mb-6 inline-block rounded-md bg-emerald-50 px-3 py-2 font-medium text-emerald-600" id="notice"><%= notice %></p>
+    <p class="mb-6 inline-block rounded-md bg-emerald-50 px-3 py-2 font-medium text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300" id="notice"><%= notice %></p>
   <% end %>
 
-  <%= link_to root_path, class: "mb-8 inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition hover:text-indigo-600" do %>
+  <%= link_to root_path, class: "mb-8 inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400" do %>
     <span aria-hidden="true">&larr;</span> Volver a proyectos
   <% end %>
 
   <%= render @project %>
 
   <% if authenticated? %>
-    <div class="mt-16 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-6 text-sm text-slate-400">
+    <div class="mt-16 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-6 text-sm text-slate-400 dark:border-slate-800">
       <span class="font-medium uppercase tracking-widest">Administrar</span>
-      <%= link_to "Editar", edit_project_path(@project), class: "rounded-md px-3 py-1.5 text-slate-600 transition hover:bg-slate-100" %>
-      <%= button_to "Eliminar", @project, method: :delete, class: "rounded-md px-3 py-1.5 text-red-600 transition hover:bg-red-50 cursor-pointer", form_class: "inline-block", data: { turbo_confirm: "¿Seguro que quieres eliminar este proyecto?" } %>
+      <%= link_to "Editar", edit_project_path(@project), class: "rounded-md px-3 py-1.5 text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800" %>
+      <%= button_to "Eliminar", @project, method: :delete, class: "rounded-md px-3 py-1.5 text-red-600 transition hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10 cursor-pointer", form_class: "inline-block", data: { turbo_confirm: "¿Seguro que quieres eliminar este proyecto?" } %>
     </div>
   <% end %>
 </div>

@@ -1,12 +1,12 @@
 <article id="<%= dom_id project %>">
-  <header class="mb-12 border-b border-slate-200 pb-8">
+  <header class="mb-12 border-b border-slate-200 pb-8 dark:border-slate-800">
     <h1 class="text-4xl font-bold tracking-tight sm:text-5xl"><%= project.title %></h1>
     <% if project.subtitle.present? %>
-      <p class="mt-3 text-lg text-slate-600"><%= project.subtitle %></p>
+      <p class="mt-3 text-lg text-slate-600 dark:text-slate-400"><%= project.subtitle %></p>
     <% end %>
     <% if project.github_url.present? %>
       <a href="<%= project.github_url %>" target="_blank" rel="noopener"
-         class="mt-5 inline-flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-indigo-300 hover:text-indigo-600">
+         class="mt-5 inline-flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-teal-300 hover:text-teal-600 dark:border-slate-600 dark:text-slate-300 dark:hover:border-teal-700 dark:hover:text-teal-400">
         Ver repositorio
         <span aria-hidden="true">&rarr;</span>
       </a>
@@ -16,7 +16,7 @@
   <div class="space-y-12">
     <section>
       <div class="flex items-center gap-3">
-        <span class="grid h-9 w-9 place-items-center rounded-lg bg-sky-100 text-sm font-bold text-sky-700">S</span>
+        <span class="grid h-9 w-9 place-items-center rounded-lg bg-sky-100 text-sm font-bold text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">S</span>
         <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-500">Situación</h2>
       </div>
       <div class="prose-star mt-4 sm:pl-12"><%= markdown(project.context) %></div>
@@ -24,7 +24,7 @@
 
     <section>
       <div class="flex items-center gap-3">
-        <span class="grid h-9 w-9 place-items-center rounded-lg bg-amber-100 text-sm font-bold text-amber-700">T</span>
+        <span class="grid h-9 w-9 place-items-center rounded-lg bg-amber-100 text-sm font-bold text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">T</span>
         <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-500">Tarea</h2>
       </div>
       <div class="prose-star mt-4 sm:pl-12"><%= markdown(project.problem) %></div>
@@ -32,7 +32,7 @@
 
     <section>
       <div class="flex items-center gap-3">
-        <span class="grid h-9 w-9 place-items-center rounded-lg bg-indigo-100 text-sm font-bold text-indigo-700">A</span>
+        <span class="grid h-9 w-9 place-items-center rounded-lg bg-teal-100 text-sm font-bold text-teal-700 dark:bg-teal-500/15 dark:text-teal-300">A</span>
         <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-500">Acción</h2>
       </div>
       <div class="prose-star mt-4 sm:pl-12"><%= markdown(project.solution) %></div>
@@ -40,7 +40,7 @@
 
     <section>
       <div class="flex items-center gap-3">
-        <span class="grid h-9 w-9 place-items-center rounded-lg bg-emerald-100 text-sm font-bold text-emerald-700">R</span>
+        <span class="grid h-9 w-9 place-items-center rounded-lg bg-emerald-100 text-sm font-bold text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">R</span>
         <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-500">Resultado</h2>
       </div>
       <div class="prose-star mt-4 sm:pl-12"><%= markdown(project.outcome) %></div>
