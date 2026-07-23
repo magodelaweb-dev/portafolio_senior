@@ -64,15 +64,21 @@ Identidad y almacenamiento, presentados como referencia y no como señal de salu
 Este README no cubre la instalación de estas herramientas base en un sistema sin aprovisionar — para eso, la documentación oficial de cada una (enlazada arriba) está más actualizada que cualquier copia que podamos mantener aquí.
 
 ### Instalación rápida
-Con Ruby, SQLite3 y Git ya instalados, clona el repositorio y ejecuta:
+Con Ruby, SQLite3 y Git ya instalados, clona el repositorio vía HTTPS:
 
 ```bash
-# Vía HTTPS
 git clone https://github.com/magodelaweb-dev/portafolio_senior.git
+```
 
-# O vía SSH
+o vía SSH:
+
+```bash
 git clone git@github.com:magodelaweb-dev/portafolio_senior.git
+```
 
+y luego ejecuta:
+
+```bash
 cd portafolio_senior
 bin/setup
 ```
