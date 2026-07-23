@@ -67,7 +67,12 @@ Este README no cubre la instalación de estas herramientas base en un sistema si
 Con Ruby, SQLite3 y Git ya instalados, clona el repositorio y ejecuta:
 
 ```bash
-git clone <url-del-repositorio>
+# Vía HTTPS
+git clone https://github.com/magodelaweb-dev/portafolio_senior.git
+
+# O vía SSH
+git clone git@github.com:magodelaweb-dev/portafolio_senior.git
+
 cd portafolio_senior
 bin/setup
 ```
