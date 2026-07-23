@@ -22,37 +22,35 @@ Evitamos la dependencia y el consumo de memoria de servicios como Redis aprovech
 
 ## ⚡ Características Principales
 
-*   **Estudios de Caso (Metodología STAR):** Desglose detallado de mis proyectos más complejos organizados por *Situación, Tarea, Acción y Resultado*, enfocados en impacto técnico y métricas de negocio.
-*   **Panel de Observabilidad (`/ops` o `/monitoreo`):** Una sección interactiva que muestra el consumo de memoria del proceso de Ruby, tiempos de respuesta promedio del servidor y el estado de las tareas en segundo plano.
+*   **Estudios de Caso (Metodología STAR):** Desglose detallado de mis proyectos más complejos organizados por *Situación, Tarea, Acción y Resultado*, enfocados en impacto técnico y métricas de negocio. El orden de exhibición es editorial, controlado por la columna `position` (scope `Project.ordered`), no cronológico.
+*   **Panel de Observabilidad (`/ops` o `/monitoreo`):** Telemetría en vivo del propio proceso, organizada según las cuatro señales doradas del SRE (latencia, tráfico, errores y saturación), con badges de salud por umbral, sparkline de latencia y el estado de las tareas en segundo plano.
 
 ---
 
 ## 📊 Panel de Observabilidad (`/ops`)
 
-Vista en vivo del propio proceso que sirve la app (no de datos de negocio). Se refresca sola vía polling (`app/javascript/controllers/poll_controller.js`) contra `OpsController#metrics`. La construye `Ops::MetricsCollector` (`app/services/ops/metrics_collector.rb`).
+Vista en vivo del propio proceso que sirve la app (no de datos de negocio). Se refresca sola vía polling (`app/javascript/controllers/poll_controller.js`) contra `OpsController#metrics`. La construye `Ops::MetricsCollector` (`app/services/ops/metrics_collector.rb`) y se organiza según las **cuatro señales doradas** del SRE de Google — latencia, tráfico, errores y saturación — en lugar de listar atributos sueltos. Cada señal lleva un badge de salud; los umbrales viven en `app/helpers/ops_helper.rb` y se documentan en el propio microcopy del panel para que el visitante pueda juzgarlos.
 
-### Aplicación
-Identidad y signos vitales del proceso: versión de Rails/Ruby, entorno, **PID** y uptime.
+### Señales doradas
+La fuente es `Telemetry` (`app/models/telemetry.rb`): un buffer de anillo en memoria con las últimas 200 peticiones, alimentado por un subscriber a `process_action.action_controller` (`config/initializers/telemetry.rb`). Es por-proceso y se pierde al reiniciar — intencional: es una foto del presente, no un histórico. El propio panel se excluye del muestreo para no medirse a sí mismo.
 
-* **PID:** es el proceso de **Puma** (`config/puma.rb`), el único servidor de aplicación del proyecto — no hay otro servicio corriendo. Con la configuración por defecto (`WEB_CONCURRENCY` sin definir) Puma levanta **1 solo worker**, así que este PID es estable entre refrescos. Si se sube `WEB_CONCURRENCY` en un deploy, habrá varios procesos Puma y el PID mostrado será el del worker que atendió esa petición puntual.
-  * Verificar en terminal: `pgrep -fal puma` (o `ps aux | grep puma`).
-* **Uptime:** tiempo desde el último arranque del proceso. Un uptime bajo e inesperado es señal de que algo reinició la app (crash, deploy, OOM).
+* **Latencia:** el titular es el **p95** (el 95% de las peticiones respondió más rápido que ese valor; a diferencia de la media, no lo distorsionan las peticiones rápidas), acompañado de un sparkline SVG inline con las últimas duraciones.
+* **Tráfico:** peticiones por minuto sobre la ventana de muestreo.
+* **Errores:** porcentaje de respuestas 5xx, con conteos de 4xx y 5xx — el buffer siempre capturó los status; ahora se agregan.
+* **Saturación:** memoria RSS del proceso (leída de `/proc/self/status`, Linux) y backlog de la cola de jobs.
 
-### Métricas de Peticiones HTTP
-Telemetría en memoria (`Telemetry`, `app/models/telemetry.rb`): un buffer de anillo de las últimas 200 peticiones, alimentado por un subscriber a `process_action.action_controller` (`config/initializers/telemetry.rb`). Es por-proceso y se pierde al reiniciar — intencional, es una foto del presente, no un histórico.
-
-* **Media / p95 / Máx:** tiempos de respuesta en ms. El **p95** es el más representativo: indica que el 95% de las peticiones fueron más rápidas que ese valor, sin que lo distorsionen las peticiones rápidas como sí le pasa al promedio.
-* **BD (Promedio):** cuánto de ese tiempo total se fue en consultas a base de datos — ayuda a distinguir cuello de botella en DB vs. en lógica de la app.
-* Tabla inferior: detalle petición a petición (endpoint, status, duración, tiempo de BD).
-
-### Bases de datos SQLite
-Tamaño en disco de cada base física (`primary`, `cache`, `queue`, `cable`). Sirve como alerta temprana de crecimiento descontrolado.
+### Detalle de peticiones
+Tabla petición a petición (endpoint, status, duración, tiempo de BD), con media/máx/BD promedio como referencia. El tiempo de BD ayuda a distinguir un cuello de botella en la base de datos de uno en la lógica de la app.
 
 ### Solid Queue
 Estado de la cola de jobs en segundo plano: listos, programados, en curso, fallidos, finalizados y procesos worker activos, más el detalle de los últimos jobs encolados. Si la sección muestra "no disponible", es porque el proceso worker no está corriendo en ese entorno (ver `bin/jobs`, `Procfile.dev`).
 
-### Solid Cache
-Cantidad de entradas actualmente en caché. Es un indicador de actividad, no de rendimiento — no dice si la caché está siendo efectiva, solo cuánto se está usando. En un entorno con poco tráfico de caché este número puede ser bajo (0-2) y la sección pasar desapercibida frente al bloque de Solid Queue, que suele tener más contenido visual (tabla de jobs recientes).
+### Inventario del proceso
+Identidad y almacenamiento, presentados como referencia y no como señal de salud: versiones de Rails/Ruby, entorno, **PID**, uptime, tamaño en disco de cada base SQLite (`primary`, `cache`, `queue`, `cable` — útil como alerta temprana de crecimiento descontrolado) y entradas en Solid Cache (indicador de actividad, no de efectividad de la caché).
+
+* **PID:** es el proceso de **Puma** (`config/puma.rb`), el único servidor de aplicación del proyecto — no hay otro servicio corriendo. Con la configuración por defecto (`WEB_CONCURRENCY` sin definir) Puma levanta **1 solo worker**, así que este PID es estable entre refrescos. Si se sube `WEB_CONCURRENCY` en un deploy, habrá varios procesos Puma y el PID mostrado será el del worker que atendió esa petición puntual.
+  * Verificar en terminal: `pgrep -fal puma` (o `ps aux | grep puma`).
+* **Uptime:** tiempo desde el último arranque del proceso. Un uptime bajo e inesperado es señal de que algo reinició la app (crash, deploy, OOM).
 
 ---
 
