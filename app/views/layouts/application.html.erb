@@ -39,19 +39,39 @@
 
   <body class="min-h-screen bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
     <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-950/80">
-      <nav class="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
-        <%= link_to root_path, class: "flex items-center gap-2 font-semibold tracking-tight" do %>
-          <span class="grid h-8 w-8 place-items-center rounded-lg bg-teal-600 text-sm font-bold text-white">AM</span>
-          <span>Arturo Martinez</span>
-        <% end %>
-        <div class="flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
-          <%= link_to "Proyectos", root_path, class: "transition hover:text-teal-600 dark:hover:text-teal-400" %>
-          <%= link_to "Sobre mí", about_path, class: "transition hover:text-teal-600 dark:hover:text-teal-400" %>
-          <%= link_to "Operaciones", ops_path, class: "transition hover:text-teal-600 dark:hover:text-teal-400" %>
-          <a href="https://github.com/magodelaweb-dev/portafolio_senior" target="_blank" rel="noopener" class="transition hover:text-teal-600 dark:hover:text-teal-400">Código del sitio</a>
-          <% if authenticated? %>
-            <%= button_to "Salir", session_path, method: :delete, class: "cursor-pointer font-medium text-slate-600 transition hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-400" %>
+      <nav class="mx-auto max-w-5xl px-5"
+           data-controller="nav"
+           data-action="turbo:load@window->nav#closeOnNavigation resize@window->nav#closeOnResize">
+        <div class="flex items-center justify-between py-4">
+          <%= link_to root_path, class: "flex items-center gap-2 font-semibold tracking-tight" do %>
+            <span class="grid h-8 w-8 place-items-center rounded-lg bg-teal-600 text-sm font-bold text-white">AM</span>
+            <span>Arturo Martinez</span>
           <% end %>
+
+          <div class="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex dark:text-slate-300">
+            <%= render "layouts/nav_links" %>
+          </div>
+
+          <button type="button"
+                  data-nav-target="trigger"
+                  data-action="nav#toggle"
+                  aria-controls="mobile-nav"
+                  aria-expanded="false"
+                  aria-label="Abrir menú de navegación"
+                  class="-mr-2 inline-flex cursor-pointer items-center justify-center rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 hover:text-teal-600 md:hidden dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-teal-400">
+            <svg data-nav-target="openIcon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+            </svg>
+            <svg data-nav-target="closeIcon" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="mobile-nav" data-nav-target="panel" class="hidden border-t border-slate-200 pb-4 md:hidden dark:border-slate-800">
+          <div class="flex flex-col gap-1 pt-2 text-base font-medium text-slate-600 dark:text-slate-300">
+            <%= render "layouts/nav_links", mobile: true %>
+          </div>
         </div>
       </nav>
     </header>
