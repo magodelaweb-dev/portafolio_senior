@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  # The site answers on both the apex and the www hostname; redirect the latter to the
+  # former so a page has a single canonical URL. Matched before every other route so it
+  # applies to the whole site, path and query string included.
+  match "(*path)", to: redirect(host: "magodelaweb.com"), via: :all,
+    constraints: { host: "www.magodelaweb.com" }
+
   resource :session
   resources :passwords, param: :token
   resources :projects
