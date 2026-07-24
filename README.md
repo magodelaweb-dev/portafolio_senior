@@ -21,7 +21,7 @@ Evitamos la dependencia y el consumo de memoria de servicios como Redis aprovech
 ### 3. El repositorio como copia de seguridad
 Aquí la base de datos no es la fuente de verdad: lo es el repositorio. Los estudios de caso viven en `db/seeds.rb`, el usuario administrador se crea desde las credenciales y las sesiones son efímeras, de modo que un `bin/rails db:seed` sobre una base vacía reconstruye el sitio íntegro. Esa propiedad hace innecesarios los backups automatizados, y por eso el proyecto no los incluye.
 
-El trade-off es explícito: se cambia robustez ante pérdida de datos por simplicidad operativa, y solo se sostiene mientras el repositorio contenga todo. Deja de hacerlo en cuanto un dato nazca en producción —un formulario de contacto, adjuntos vía Active Storage, o editar los estudios de caso desde la interfaz en vez de `db/seeds.rb`—. Cualquiera de esos tres casos invierte el cálculo, y entonces la solución proporcionada es el comando `.backup` de SQLite hacia un destino externo, consistente frente a escrituras en curso a diferencia de copiar el archivo.
+El trade-off es explícito: se cambia robustez ante pérdida de datos por simplicidad operativa, y se sostiene mientras el repositorio siga conteniendo todo. Si el proyecto incorpora datos que nazcan en producción, la estrategia de persistencia se replanteará en ese momento y a la medida de lo que entonces se necesite.
 
 ---
 
