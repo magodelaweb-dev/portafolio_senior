@@ -18,10 +18,10 @@ Evitamos la dependencia y el consumo de memoria de servicios como Redis aprovech
 * **Solid Cache:** Almacenamiento de caché en la base de datos.
 * **Solid Cable:** Adaptador de Action Cable (WebSockets / tiempo real) sobre SQLite. Está configurado y operativo, pero el proyecto aún no define canales propios en `app/channels`, por lo que hoy no tiene un uso visible más allá de estar disponible como infraestructura.
 
-### 3. Sin copias de seguridad de la base de datos
-No hay backups automatizados, y es una decisión, no un descuido. Todo el contenido de la base de datos es reconstruible desde el propio repositorio: los estudios de caso viven en `db/seeds.rb`, el usuario administrador se crea desde las credenciales, y las sesiones son efímeras. Un `bin/rails db:seed` sobre una base vacía deja el sitio en su estado íntegro.
+### 3. El repositorio como copia de seguridad
+Aquí la base de datos no es la fuente de verdad: lo es el repositorio. Los estudios de caso viven en `db/seeds.rb`, el usuario administrador se crea desde las credenciales y las sesiones son efímeras, de modo que un `bin/rails db:seed` sobre una base vacía reconstruye el sitio íntegro. Esa propiedad hace innecesarios los backups automatizados, y por eso el proyecto no los incluye.
 
-Esto deja de ser cierto en cuanto exista un dato que nazca en producción y no en el repositorio: un formulario de contacto, adjuntos vía Active Storage, o editar los estudios de caso desde la interfaz en lugar de `db/seeds.rb`. Cuando ocurra, la solución proporcionada es el comando `.backup` de SQLite —consistente frente a escrituras en curso, a diferencia de copiar el archivo— hacia un destino externo. Construirlo antes de que exista ese dato sería resolver un problema que el proyecto todavía no tiene.
+El trade-off es explícito: se cambia robustez ante pérdida de datos por simplicidad operativa, y solo se sostiene mientras el repositorio contenga todo. Deja de hacerlo en cuanto un dato nazca en producción —un formulario de contacto, adjuntos vía Active Storage, o editar los estudios de caso desde la interfaz en vez de `db/seeds.rb`—. Cualquiera de esos tres casos invierte el cálculo, y entonces la solución proporcionada es el comando `.backup` de SQLite hacia un destino externo, consistente frente a escrituras en curso a diferencia de copiar el archivo.
 
 ---
 
