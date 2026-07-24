@@ -22,7 +22,9 @@ servers:
 #
 proxy:
   ssl: true
-  host: magodelaweb.com
+  hosts:
+    - magodelaweb.com
+    - www.magodelaweb.com
 
 # Where you keep your container images.
 registry:
