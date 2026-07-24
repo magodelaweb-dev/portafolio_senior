@@ -1,0 +1,14 @@
+<%# Shared by the desktop bar and the mobile panel. On mobile the links become
+    full-width rows with a comfortable tap target; on desktop they stay inline. %>
+<% mobile = local_assigns.fetch(:mobile, false) %>
+<% link_class = "transition hover:text-teal-600 dark:hover:text-teal-400" %>
+<% link_class += " rounded-lg px-2 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-800" if mobile %>
+
+<%= link_to "Proyectos", root_path, class: link_class %>
+<%= link_to "Sobre mí", about_path, class: link_class %>
+<%= link_to "Operaciones", ops_path, class: link_class %>
+<a href="https://github.com/magodelaweb-dev/portafolio_senior" target="_blank" rel="noopener" class="<%= link_class %>">Código del sitio</a>
+<% if authenticated? %>
+  <%= button_to "Salir", session_path, method: :delete,
+        class: "cursor-pointer #{mobile ? 'w-full rounded-lg px-2 py-2.5 text-left' : ''} font-medium text-slate-600 transition hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-400" %>
+<% end %>
