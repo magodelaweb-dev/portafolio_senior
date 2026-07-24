@@ -18,6 +18,11 @@ Evitamos la dependencia y el consumo de memoria de servicios como Redis aprovech
 * **Solid Cache:** Almacenamiento de caché en la base de datos.
 * **Solid Cable:** Adaptador de Action Cable (WebSockets / tiempo real) sobre SQLite. Está configurado y operativo, pero el proyecto aún no define canales propios en `app/channels`, por lo que hoy no tiene un uso visible más allá de estar disponible como infraestructura.
 
+### 3. El repositorio como copia de seguridad
+Aquí la base de datos no es la fuente de verdad: lo es el repositorio. Los estudios de caso viven en `db/seeds.rb`, el usuario administrador se crea desde las credenciales y las sesiones son efímeras, de modo que un `bin/rails db:seed` sobre una base vacía reconstruye el sitio íntegro. Esa propiedad hace innecesarios los backups automatizados, y por eso el proyecto no los incluye.
+
+El trade-off es explícito: se cambia robustez ante pérdida de datos por simplicidad operativa, y se sostiene mientras el repositorio siga conteniendo todo. Si el proyecto incorpora datos que nazcan en producción, la estrategia de persistencia se replanteará en ese momento y a la medida de lo que entonces se necesite.
+
 ---
 
 ## ⚡ Características Principales
