@@ -151,12 +151,12 @@ case_studies = [
   },
   {
     title: "Recuperación ante desastres y reconstrucción de infraestructura en AWS",
-    subtitle: "Goapp Perú SAC · Disgo, 2018 — De pérdida total de infraestructura a 95% de datos operativos recuperados mediante parsing de logs y backups multi-cloud",
+    subtitle: "Goapp Perú SAC · Disgo, 2018 — De la pérdida total de la infraestructura a la operación restablecida, reconstruyendo los datos desde los logs y montando backups multi-cloud",
     context: <<~MD,
-      En **Goapp Perú SAC**, empresa dueña del producto **Disgo**, y tras la vacante del
-      puesto de CTO, un escalamiento mal ejecutado por un consultor externo eliminó
-      accidentalmente **toda la infraestructura de la empresa en AWS**: instancias EC2
-      (Windows Server, MongoDB), RDS (SQL Server) y buckets S3.
+      En **Goapp Perú SAC**, empresa dueña del producto **Disgo**, y con el puesto de CTO
+      vacante, un escalamiento mal ejecutado eliminó accidentalmente **toda la
+      infraestructura de la empresa en AWS**: instancias EC2 (Windows Server, MongoDB),
+      RDS (SQL Server) y buckets S3.
 
       - Sistema **totalmente inaccesible** para clientes y operación.
       - **Sin snapshots utilizables** para restauración directa desde la consola de AWS.
@@ -200,13 +200,13 @@ case_studies = [
     outcome: <<~MD
       | Métrica                  | Antes del incidente          | Tras la recuperación                |
       |---------------------------|-------------------------------|--------------------------------------|
-      | Estado del sistema         | Pérdida total (0% disponibilidad) | 100% operativo                  |
-      | Datos críticos recuperados | 0% (sin backups directos)     | 95% de los datos esenciales         |
+      | Estado del sistema         | Pérdida total (sistema inaccesible) | Operación restablecida por completo |
+      | Datos operativos           | Sin backups directos utilizables | Reconstruidos desde los logs, con pérdida residual acotada |
       | Estrategia de respaldos    | Inexistente (vulnerable a borrado total) | Automática y multi-cloud (AWS + Google Drive) |
 
-      Se reanudó la operación completa **sin impacto directo percibido por los usuarios
-      finales**. La resolución del incidente y la estrategia defensiva implementada me
-      otorgaron la confianza de la directiva para asumir la posición vacante de **CTO**.
+      Se reanudó la operación **sin interrupciones reportadas por los usuarios finales**.
+      La resolución del incidente y la estrategia defensiva implementada me otorgaron la
+      confianza de la directiva para asumir la posición vacante de **CTO**.
     MD
   },
   {
@@ -266,7 +266,7 @@ case_studies = [
       | Métrica                | Antes (estado legacy)         | Tras la intervención                        |
       |--------------------------|--------------------------------|-----------------------------------------------|
       | Tiempo de despliegue      | Sin infraestructura            | 2 días a la primera versión en producción     |
-      | Control de código y BD    | 0% (archivos ZIP y dumps SQL)  | 100% versionado (Git + migraciones Laravel)   |
+      | Control de código y BD    | Sin control (archivos ZIP y dumps SQL) | Código y esquema de BD íntegramente versionados (Git + migraciones Laravel) |
       | Tiempo a monetización     | Inoperativo                    | 5 meses (producto completo y generando ingresos) |
 
       Se transformó un prototipo abandonado e inestable en un **producto SaaS
