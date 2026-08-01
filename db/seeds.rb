@@ -6,14 +6,14 @@
 # not chronological — see git history / PR discussion for the rationale.
 case_studies = [
   {
-    title: "Refactorización de un dominio core y gobernanza de arquitectura en SaaS",
-    subtitle: "Buk, 2025 — De un componente transversal acoplado a supuestos implícitos a soporte nativo de ex-colaboradores, sin afectar a los módulos dependientes",
+    title: "Extensión de un dominio core compartido y gobernanza de arquitectura en SaaS",
+    subtitle: "Buk, 2025 — De un componente transversal acoplado a supuestos implícitos a encuestas que alcanzan también a ex-colaboradores, sin afectar a los módulos dependientes",
     context: <<~MD,
       En la plataforma SaaS de gestión de RR. HH. de **Buk**, el modelo de datos de
       **Colaborador** era un bloque transversal reutilizado a lo largo del producto. El
-      *building block* de participantes construido sobre él daba servicio a los módulos
-      de **encuestas, talento y selección**, y asumía implícitamente que todo usuario
-      registrado era un colaborador **activo**.
+      *building block* de participantes construido sobre él daba servicio al módulo de
+      **encuestas** y a otros módulos mantenidos por equipos distintos, y asumía
+      implícitamente que todo usuario registrado era un colaborador **activo**.
 
       Al requerir, desde el módulo de **cultura**, el lanzamiento de encuestas para
       ex-colaboradores (procesos de *offboarding* y encuestas de salida), el sistema no
@@ -22,44 +22,45 @@ case_studies = [
     MD
     problem: <<~MD,
       Como *champion*/líder de la misión, debía conducirla de extremo a extremo —
-      *discovery* técnico, planificación del *delivery* y desarrollo— para soportar la
-      entidad de **ex-colaboradores desvinculados**, garantizando cero tiempo de
-      inactividad, **retrocompatibilidad** con todos los módulos dependientes y la
-      aprobación técnica del equipo central de Plataforma.
+      *discovery* técnico, planificación del *delivery* y desarrollo— para que el módulo
+      de encuestas admitiera como destinatarios a los **ex-colaboradores desvinculados**,
+      garantizando **retrocompatibilidad** con los módulos que ya consumían el componente
+      y la aprobación técnica del equipo central de Plataforma.
     MD
     solution: <<~MD,
       1. **Discovery técnico y análisis de impacto**: abrí la misión con un documento de
          diseño que evaluaba alternativas de solución, el modelo de datos, los riesgos y
          el plan de despliegue. Sobre esa base audité el código para identificar todos
-         los acoplamientos y las consultas directas a la entidad Colaborador a lo largo
-         de los distintos submódulos, antes de tocar una sola línea de la interfaz
-         compartida.
-      2. **Refactorización defensiva y retrocompatibilidad**: rediseñé los *building
-         blocks* internos del componente —interfaces de Rails que combinan ERB, *cells*,
-         JavaScript y widgets Vue— abstrayendo la consulta del estado
-         (activo/desvinculado) mediante *scopes* y filtros configurables, de modo que las
-         llamadas existentes conservaran su comportamiento previo sin cambios. El grueso
-         del trabajo fue de backend; los ajustes de interfaz fueron puntuales.
+         los acoplamientos y las consultas directas a la entidad Colaborador entre los
+         módulos consumidores, antes de tocar una sola línea de la interfaz compartida.
+      2. **Extensión defensiva y retrocompatibilidad**: sin modificar el modelo de
+         Colaborador —mantenido por otro equipo—, extendí desde el módulo de cultura los
+         filtros de su controlador para exponer el estado (activo/desvinculado) como
+         criterio de selección de la audiencia al crear la campaña, apoyándome en los
+         *scopes* que el modelo ya ofrecía. Las llamadas existentes conservaron su comportamiento previo sin
+         cambios. El trabajo se concentró en el backend y en el *building block* de
+         participantes —una interfaz interna de Rails que combina ERB, *cells*,
+         JavaScript y widgets Vue—; los ajustes de interfaz fueron puntuales.
       3. **Gobernanza y estrategia de pull requests**: traduje el diseño a tarjetas
-         acotadas, con criterios de aceptación y plan de pruebas propios, y fragmenté la
-         refactorización en cambios atómicos y revisables. Coordiné las revisiones de
+         acotadas, con criterios de aceptación y plan de pruebas propios, y fragmenté el
+         trabajo en cambios atómicos y revisables. Coordiné las revisiones de
          arquitectura con el equipo de Plataforma para cumplir los estándares de
          rendimiento y seguridad de la base de código principal, y con los equipos de UX,
          UI y *design system* cada vez que un cambio modificaba componentes de interfaz
          existentes.
       4. **Plan de pruebas y QA exhaustivo**: asumí la calidad de la misión de punta a
          punta, definiendo una matriz de pruebas de regresión y automatizando pruebas
-         unitarias y de integración para certificar que los flujos de talento y selección
-         y los permisos de usuarios activos no sufrieran alteración alguna.
+         unitarias y de integración para certificar que los flujos de los módulos
+         consumidores no sufrieran alteración alguna.
 
       **Compromisos de ingeniería (trade-offs)**
 
-      - *Refactorización incremental vs. reescritura del componente desde cero*:
-        mantener la estructura base de la entidad Colaborador y extenderla mediante
-        filtros y *scopes*, en lugar de crear una tabla o un servicio separado para
-        ex-colaboradores, asumió una carga de pruebas de retrocompatibilidad mucho
-        mayor, a cambio de preservar la integridad referencial histórica y evitar la
-        duplicación de los datos de usuario.
+      - *Audiencia excluyente y fijada al inicio vs. audiencia mixta o editable*: cada
+        campaña se dirige a colaboradores activos **o** a desvinculados, nunca a ambos, y
+        su audiencia queda congelada una vez iniciada. Renunciar a la flexibilidad de
+        mezclar públicos o corregirla sobre la marcha evitó cruces de destinatarios y
+        resultados entre poblaciones que no son comparables, a cambio de obligar a
+        planificar bien la campaña antes de lanzarla.
       - *QA exhaustivo vs. velocidad de despliegue*: invertir en revisión atómica de
         *pull requests* con el equipo de Plataforma, en aprobaciones de UX/UI/*design
         system* para los ajustes de interfaz y en pruebas de regresión cruzadas extendió
@@ -67,10 +68,10 @@ case_studies = [
         de caídas o inconsistencias en los módulos que ya consumían el componente.
     MD
     outcome: <<~MD
-      | Métrica                  | Estado inicial                          | Tras la refactorización                                   |
+      | Métrica                  | Estado inicial                          | Tras la intervención                                      |
       |-----------------------------|--------------------------------------------|----------------------------------------------------------------|
-      | Soporte de entidades         | Exclusivo para colaboradores activos       | Soporte nativo para ex-colaboradores en encuestas de salida    |
-      | Retrocompatibilidad          | Riesgo alto por impacto transversal        | Módulos dependientes (talento, selección) sin cambios en su comportamiento |
+      | Destinatarios de encuestas   | Solo colaboradores activos                 | Campañas dirigidas a activos o a desvinculados                 |
+      | Retrocompatibilidad          | Riesgo alto por impacto transversal        | Módulos dependientes de otros equipos sin cambios en su comportamiento |
       | Gobernanza técnica           | Código acoplado a supuestos implícitos     | Cambios revisados y aprobados por el equipo de Plataforma      |
 
       Se habilitó el módulo de encuestas a ex-colaboradores (*offboarding*), abriendo
