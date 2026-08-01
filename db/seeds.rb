@@ -6,66 +6,69 @@
 # not chronological — see git history / PR discussion for the rationale.
 case_studies = [
   {
-    title: "Motor de recurrencia y orquestación asíncrona de tareas",
-    subtitle: "Buk, 2025 — De encuestas manuales y puntuales a automatización 100% recurrente con un motor de reglas reutilizable en toda la plataforma",
+    title: "Refactorización de un dominio core y gobernanza de arquitectura en SaaS",
+    subtitle: "Buk, 2025 — De un componente transversal acoplado a supuestos implícitos a soporte nativo de ex-colaboradores, sin afectar a los módulos dependientes",
     context: <<~MD,
-      En la plataforma SaaS de gestión de RR. HH. de **Buk** (con presencia en múltiples
-      países de Latinoamérica y miles de usuarios concurrentes), el módulo de clima
-      laboral requería automatizar la recolección continua de *feedback*. Hasta ese
-      momento, las encuestas solo podían ejecutarse de forma puntual o manual, lo que
-      limitaba la capacidad de las empresas para medir el pulso de sus equipos de forma
-      periódica a lo largo del tiempo.
+      En la plataforma SaaS de gestión de RR. HH. de **Buk**, el componente y el modelo
+      de datos de **Colaborador** eran un bloque transversal reutilizado por la gran
+      mayoría de los módulos (nómina, asistencia, beneficios, clima laboral). Sin
+      embargo, la arquitectura del componente asumía implícitamente que todo usuario
+      registrado era un colaborador **activo**.
+
+      Al requerir el lanzamiento de encuestas para ex-colaboradores (procesos de
+      *offboarding* y encuestas de salida), el sistema no permitía cargar ni consultar
+      usuarios desvinculados sin alterar el comportamiento global de la plataforma.
     MD
     problem: <<~MD,
-      Como *champion*/líder del proyecto, debía diseñar un **motor de recurrencia**
-      desacoplado y reutilizable (capaz de manejar reglas complejas de repetición al
-      estilo de Google Calendar) e implementar un sistema de orquestación de
-      *background jobs* capaz de activar, reprogramar y procesar encuestas recurrentes
-      sin generar inconsistencias de datos ni sobrecargar la infraestructura.
+      Como *champion*/líder de la misión, debía rediseñar y refactorizar el componente
+      de colaboradores en backend y frontend para soportar la entidad de
+      **ex-colaboradores desvinculados**, garantizando cero tiempo de inactividad,
+      **retrocompatibilidad** con todos los módulos dependientes y la aprobación técnica
+      del equipo central de Plataforma.
     MD
     solution: <<~MD,
-      1. **Abstracción del dominio (motor de recurrencia)**: diseñé un componente
-         desacoplado y agnóstico del módulo de encuestas para calcular reglas de
-         repetición (`rrule`, frecuencias, intervalos y excepciones), aislando la
-         complejidad matemática del calendario y dejando la lógica disponible para
-         otros módulos de la plataforma.
-      2. **Modelado de datos para respuestas múltiples**: rediseñé el modelo de datos
-         para separar la definición/plantilla de la encuesta de sus instancias de
-         ejecución, permitiendo que los colaboradores respondan N veces la misma
-         encuesta en distintos periodos manteniendo el historial limpio.
-      3. **Orquestación asíncrona y ciclo de vida de los jobs**: diseñé el despacho de
-         *future tasks* en colas de trabajo en segundo plano para activar las encuestas
-         en las fechas y horas exactas programadas, e implementé la gestión de su ciclo
-         de vida para que, si un administrador edita o cancela una regla de recurrencia
-         en vivo, el sistema cancele, recalcule y reordene dinámicamente las tareas
-         futuras.
-      4. **Garantía de idempotencia**: implementé controles de concurrencia para
-         asegurar que cada instancia de encuesta o notificación masiva se genere
-         exactamente una vez por periodo, incluso ante reintentos de la cola de jobs.
+      1. **Análisis de impacto y mapeo de dependencias**: audité el código para
+         identificar todos los acoplamientos y las consultas directas a la entidad
+         Colaborador a lo largo de los distintos submódulos, antes de tocar una sola
+         línea de la interfaz compartida.
+      2. **Refactorización defensiva y retrocompatibilidad**: rediseñé la interfaz del
+         componente en backend (API REST) y frontend (Vue.js), abstrayendo la consulta
+         del estado (activo/desvinculado) mediante *scopes* y filtros configurables,
+         de modo que las llamadas existentes conservaran su comportamiento previo sin
+         cambios.
+      3. **Gobernanza y estrategia de pull requests**: fragmenté la refactorización en
+         cambios atómicos y revisables, coordinando las revisiones de arquitectura con
+         el equipo de Plataforma para cumplir los estándares de rendimiento y seguridad
+         de la base de código principal.
+      4. **Plan de pruebas y QA exhaustivo**: diseñé junto con QA una matriz de pruebas
+         de regresión y automaticé pruebas unitarias y de integración para certificar
+         que el cálculo de nóminas y los permisos de usuarios activos no sufrieran
+         alteración alguna.
 
       **Compromisos de ingeniería (trade-offs)**
 
-      - *Motor de recurrencia desacoplado vs. solución ad hoc en el módulo*: invertir en
-        abstraer la lógica de repetición en un componente agnóstico, en lugar de
-        programar fechas fijas dentro de la tabla de encuestas, asumió mayor complejidad
-        de diseño inicial a cambio de cero duplicación de código futura y alta
-        mantenibilidad.
-      - *Programación dinámica de jobs vs. evaluación por lotes (cron diario)*:
-        programar e iterar *jobs* asíncronos específicos para cada evento recurrente
-        requirió lógica cuidadosa para invalidar y reorquestar tareas cuando el usuario
-        edita la configuración, pero evitó *crons* pesados que escanearan cada noche
-        toda la base de datos buscando encuestas pendientes.
+      - *Refactorización incremental vs. reescritura del componente desde cero*:
+        mantener la estructura base de la entidad Colaborador y extenderla mediante
+        filtros y *scopes*, en lugar de crear una tabla o un servicio separado para
+        ex-colaboradores, asumió una carga de pruebas de retrocompatibilidad mucho
+        mayor, a cambio de preservar la integridad referencial histórica y evitar la
+        duplicación de los datos de usuario.
+      - *QA exhaustivo vs. velocidad de despliegue*: invertir en revisión atómica de
+        *pull requests* con el equipo de Plataforma y en pruebas de regresión cruzadas
+        extendió el *time-to-market* de la funcionalidad, a cambio de reducir al mínimo
+        el riesgo de caídas o inconsistencias en el cálculo de nómina de los usuarios
+        activos.
     MD
     outcome: <<~MD
-      | Métrica                  | Estado inicial                          | Tras la implementación                                    |
+      | Métrica                  | Estado inicial                          | Tras la refactorización                                   |
       |-----------------------------|--------------------------------------------|----------------------------------------------------------------|
-      | Capacidad de programación    | 100% manual / ejecuciones puntuales        | 100% automatizado con reglas de recurrencia complejas          |
-      | Reutilización de código      | Lógica acoplada a un módulo específico     | Motor de recurrencia centralizado y reutilizable en toda la plataforma |
-      | Procesamiento de tareas      | Inexistente para eventos periódicos        | Orquestación asíncrona idempotente con soporte para edición en vivo |
+      | Soporte de entidades         | Exclusivo para colaboradores activos       | Soporte nativo para ex-colaboradores en encuestas de salida    |
+      | Incidencias en producción    | Riesgo alto por impacto transversal        | Sin incidencias reportadas en nómina ni asistencia tras el despliegue |
+      | Gobernanza técnica           | Código acoplado a supuestos implícitos     | Cambios revisados y aprobados por el equipo de Plataforma      |
 
-      Se eliminó la carga operativa manual para los equipos de gestión de personas en
-      cientos de empresas clientes, habilitando la **medición continua del clima
-      laboral** y aumentando el *engagement* con el módulo.
+      Se habilitó el módulo de encuestas a ex-colaboradores (*offboarding*), abriendo
+      una nueva línea de **métricas de retención de talento** para las empresas
+      clientes.
     MD
   },
   {
@@ -268,6 +271,12 @@ case_studies.each_with_index do |attrs, index|
   Project.find_or_initialize_by(title: attrs[:title])
          .update!(attrs.merge(position: index))
 end
+
+# Being the source of truth also means removals propagate: a case study that
+# is renamed or dropped here would otherwise survive in already-seeded
+# databases as an orphan record, still publicly listed.
+removed = Project.where.not(title: case_studies.map { |attrs| attrs[:title] }).destroy_all
+puts "Removed #{removed.size} case studies no longer defined in the seed file." if removed.any?
 
 puts "Seeded #{Project.count} project case studies."
 
