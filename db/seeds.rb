@@ -6,80 +6,88 @@
 # not chronological — see git history / PR discussion for the rationale.
 case_studies = [
   {
-    title: "Refactorización de un dominio core y gobernanza de arquitectura en SaaS",
-    subtitle: "Buk, 2025 — De un componente transversal acoplado a supuestos implícitos a soporte nativo de ex-colaboradores, sin afectar a los módulos dependientes",
+    title: "Extensión de un dominio core compartido y gobernanza de arquitectura en SaaS",
+    subtitle: "Buk, 2025 — De un componente transversal acoplado a supuestos implícitos a encuestas que alcanzan también a ex-colaboradores, sin afectar a los módulos dependientes",
     context: <<~MD,
-      En la plataforma SaaS de gestión de RR. HH. de **Buk**, el componente y el modelo
-      de datos de **Colaborador** eran un bloque transversal reutilizado por la gran
-      mayoría de los módulos (nómina, asistencia, beneficios, clima laboral). Sin
-      embargo, la arquitectura del componente asumía implícitamente que todo usuario
-      registrado era un colaborador **activo**.
+      En la plataforma SaaS de gestión de RR. HH. de **Buk**, el modelo de datos de
+      **Colaborador** era un bloque transversal reutilizado a lo largo del producto. El
+      *building block* de participantes construido sobre él daba servicio al módulo de
+      **encuestas** y a otros módulos mantenidos por equipos distintos, y asumía
+      implícitamente que todo usuario registrado era un colaborador **activo**.
 
-      Al requerir el lanzamiento de encuestas para ex-colaboradores (procesos de
-      *offboarding* y encuestas de salida), el sistema no permitía cargar ni consultar
-      usuarios desvinculados sin alterar el comportamiento global de la plataforma.
+      Al requerir, desde el módulo de **cultura**, el lanzamiento de encuestas para
+      ex-colaboradores (procesos de *offboarding* y encuestas de salida), el sistema no
+      permitía cargar ni consultar usuarios desvinculados sin alterar el comportamiento
+      de los módulos que ya dependían de ese componente.
     MD
     problem: <<~MD,
-      Como *champion*/líder de la misión, debía rediseñar y refactorizar el componente
-      de colaboradores en backend y frontend para soportar la entidad de
-      **ex-colaboradores desvinculados**, garantizando cero tiempo de inactividad,
-      **retrocompatibilidad** con todos los módulos dependientes y la aprobación técnica
-      del equipo central de Plataforma.
+      Como *champion*/líder de la misión, debía conducirla de extremo a extremo —
+      *discovery* técnico, planificación del *delivery* y desarrollo— para que el módulo
+      de encuestas admitiera como destinatarios a los **ex-colaboradores desvinculados**,
+      garantizando **retrocompatibilidad** con los módulos que ya consumían el componente
+      y la aprobación técnica del equipo central de Plataforma.
     MD
     solution: <<~MD,
-      1. **Análisis de impacto y mapeo de dependencias**: audité el código para
-         identificar todos los acoplamientos y las consultas directas a la entidad
-         Colaborador a lo largo de los distintos submódulos, antes de tocar una sola
-         línea de la interfaz compartida.
-      2. **Refactorización defensiva y retrocompatibilidad**: rediseñé la interfaz del
-         componente en backend (API REST) y frontend (Vue.js), abstrayendo la consulta
-         del estado (activo/desvinculado) mediante *scopes* y filtros configurables,
-         de modo que las llamadas existentes conservaran su comportamiento previo sin
-         cambios.
-      3. **Gobernanza y estrategia de pull requests**: fragmenté la refactorización en
-         cambios atómicos y revisables, coordinando las revisiones de arquitectura con
-         el equipo de Plataforma para cumplir los estándares de rendimiento y seguridad
-         de la base de código principal.
-      4. **Plan de pruebas y QA exhaustivo**: diseñé junto con QA una matriz de pruebas
-         de regresión y automaticé pruebas unitarias y de integración para certificar
-         que el cálculo de nóminas y los permisos de usuarios activos no sufrieran
-         alteración alguna.
+      1. **Discovery técnico y análisis de impacto**: abrí la misión con un documento de
+         diseño que evaluaba alternativas de solución, el modelo de datos, los riesgos y
+         el plan de despliegue. Sobre esa base audité el código para identificar todos
+         los acoplamientos y las consultas directas a la entidad Colaborador entre los
+         módulos consumidores, antes de tocar una sola línea de la interfaz compartida.
+      2. **Extensión defensiva y retrocompatibilidad**: sin modificar el modelo de
+         Colaborador —mantenido por otro equipo—, extendí desde el módulo de cultura los
+         filtros de su controlador para exponer el estado (activo/desvinculado) como
+         criterio de selección de la audiencia al crear la campaña, apoyándome en los
+         *scopes* que el modelo ya ofrecía. Las llamadas existentes conservaron su comportamiento previo sin
+         cambios. El trabajo se concentró en el backend y en el *building block* de
+         participantes —una interfaz interna de Rails que combina ERB, *cells*,
+         JavaScript y widgets Vue—; los ajustes de interfaz fueron puntuales.
+      3. **Gobernanza y estrategia de pull requests**: traduje el diseño a tarjetas
+         acotadas, con criterios de aceptación y plan de pruebas propios, y fragmenté el
+         trabajo en cambios atómicos y revisables. Coordiné las revisiones de
+         arquitectura con el equipo de Plataforma para cumplir los estándares de
+         rendimiento y seguridad de la base de código principal, y con los equipos de UX,
+         UI y *design system* cada vez que un cambio modificaba componentes de interfaz
+         existentes.
+      4. **Plan de pruebas y QA exhaustivo**: asumí la calidad de la misión de punta a
+         punta, definiendo una matriz de pruebas de regresión y automatizando pruebas
+         unitarias y de integración para certificar que los flujos de los módulos
+         consumidores no sufrieran alteración alguna.
 
       **Compromisos de ingeniería (trade-offs)**
 
-      - *Refactorización incremental vs. reescritura del componente desde cero*:
-        mantener la estructura base de la entidad Colaborador y extenderla mediante
-        filtros y *scopes*, en lugar de crear una tabla o un servicio separado para
-        ex-colaboradores, asumió una carga de pruebas de retrocompatibilidad mucho
-        mayor, a cambio de preservar la integridad referencial histórica y evitar la
-        duplicación de los datos de usuario.
+      - *Audiencia excluyente y fijada al inicio vs. audiencia mixta o editable*: cada
+        campaña se dirige a colaboradores activos **o** a desvinculados, nunca a ambos, y
+        su audiencia queda congelada una vez iniciada. Renunciar a la flexibilidad de
+        mezclar públicos o corregirla sobre la marcha evitó cruces de destinatarios y
+        resultados entre poblaciones que no son comparables, a cambio de obligar a
+        planificar bien la campaña antes de lanzarla.
       - *QA exhaustivo vs. velocidad de despliegue*: invertir en revisión atómica de
-        *pull requests* con el equipo de Plataforma y en pruebas de regresión cruzadas
-        extendió el *time-to-market* de la funcionalidad, a cambio de reducir al mínimo
-        el riesgo de caídas o inconsistencias en el cálculo de nómina de los usuarios
-        activos.
+        *pull requests* con el equipo de Plataforma, en aprobaciones de UX/UI/*design
+        system* para los ajustes de interfaz y en pruebas de regresión cruzadas extendió
+        el *time-to-market* de la funcionalidad, a cambio de reducir al mínimo el riesgo
+        de caídas o inconsistencias en los módulos que ya consumían el componente.
     MD
     outcome: <<~MD
-      | Métrica                  | Estado inicial                          | Tras la refactorización                                   |
+      | Métrica                  | Estado inicial                          | Tras la intervención                                      |
       |-----------------------------|--------------------------------------------|----------------------------------------------------------------|
-      | Soporte de entidades         | Exclusivo para colaboradores activos       | Soporte nativo para ex-colaboradores en encuestas de salida    |
-      | Incidencias en producción    | Riesgo alto por impacto transversal        | Sin incidencias reportadas en nómina ni asistencia tras el despliegue |
+      | Destinatarios de encuestas   | Solo colaboradores activos                 | Campañas dirigidas a activos o a desvinculados                 |
+      | Retrocompatibilidad          | Riesgo alto por impacto transversal        | Módulos dependientes de otros equipos sin cambios en su comportamiento |
       | Gobernanza técnica           | Código acoplado a supuestos implícitos     | Cambios revisados y aprobados por el equipo de Plataforma      |
 
       Se habilitó el módulo de encuestas a ex-colaboradores (*offboarding*), abriendo
       una nueva línea de **métricas de retención de talento** para las empresas
-      clientes.
+      clientes, y su uso creció tras la habilitación.
     MD
   },
   {
     title: "Arquitectura IoT, integración FinTech y cumplimiento PCI-DSS",
     subtitle: "Prote Corp · Mi Prote & Mi Body, 2022 — De hardware aislado a dos productos IoT/SaaS en producción con certificación PCI-DSS",
     context: <<~MD,
-      **Prote Corp** necesitaba lanzar dos líneas de producto vinculadas a hardware IoT
-      en el mercado español: **Mi Prote** (máquinas expendedoras inteligentes de batidos
-      de proteína controladas por app Android) y **Mi Body** (balanzas antropométricas
-      que envían parámetros físicos en tiempo real para generar diagnósticos y planes
-      nutricionales por suscripción).
+      **Prote Corp**, *startup* española, necesitaba lanzar dos líneas de producto
+      vinculadas a hardware IoT: **Mi Prote** (máquinas expendedoras inteligentes de
+      batidos de proteína, operadas desde la pantalla Android embarcada) y **Mi Body**
+      (balanzas antropométricas que envían por Bluetooth los parámetros físicos a una
+      *tablet*, para generar diagnósticos y planes nutricionales por suscripción).
 
       - Hardware físico heterogéneo **sin conexión a una arquitectura cloud**.
       - Necesidad de procesar cobros recurrentes e integrar pasarelas bancarias
@@ -87,26 +95,29 @@ case_studies = [
         seguridad y auditoría de **PCI-DSS**.
     MD
     problem: <<~MD,
-      Como líder *fullstack*, debía diseñar la arquitectura centralizada (API REST y
-      backend), liderar los equipos de Android, IoT, web y diseño, coordinar la
-      comunicación segura hardware-servidor, integrar pasarelas de pago y facturación
-      (Redsys, Stripe, Nayax, Holded) y **garantizar el cumplimiento normativo** para
-      obtener la licencia PCI-DSS.
+      Como **CTO** —un rol que en una *startup* combina la dirección técnica con el
+      desarrollo *fullstack* del producto—, debía diseñar la arquitectura centralizada
+      (API REST y backend), dirigir a los equipos de Android, IoT, web y diseño,
+      coordinar la comunicación segura hardware-servidor, integrar las pasarelas de pago
+      y facturación (Redsys, Stripe, Nayax, Holded) y **garantizar el cumplimiento
+      normativo** para obtener la licencia PCI-DSS.
     MD
     solution: <<~MD,
       1. **API REST y autenticación**: diseñé y desplegué sobre AWS EC2 (Linux) un
          backend monolítico modular en PHP Laravel con **Laravel Passport (OAuth2)**,
-         exponiendo endpoints seguros e higienizados para los clientes web, las apps
-         Android y el hardware IoT.
+         exponiendo endpoints seguros e higienizados para los clientes web, las
+         aplicaciones Android y el hardware IoT.
       2. **Integración FinTech y compliance PCI-DSS**: integré **Redsys** (Banco
          Santander) para cobros recurrentes de suscripciones y **Stripe** para pagos
          digitales, con tokenización de tarjetas para que los datos sensibles nunca
          tocaran ni se almacenaran en los servidores propios, reduciendo el alcance de
-         auditoría y logrando la certificación PCI-DSS.
-      3. **Integración de hardware e IoT**: sincronicé con los equipos de Android e IoT
-         los protocolos REST para la lectura de sensores (balanzas Mi Body), el
-         despacho de insumos (expendedoras Mi Prote) y la integración con terminales de
-         pago físico **Nayax**.
+         auditoría y conduciendo a la empresa a la certificación PCI-DSS.
+      3. **Integración de hardware e IoT**: definí los protocolos REST para el despacho de
+         insumos (expendedoras Mi Prote), la lectura de sensores por Bluetooth (balanzas
+         Mi Body) y la integración con terminales de pago físico **Nayax**. Dirigí su
+         consumo desde las dos aplicaciones Android del ecosistema —la pantalla embarcada
+         de la expendedora y la *tablet* emparejada con la balanza, junto con su SDK de
+         comunicación—, desarrolladas bajo mi dirección por el equipo Android.
       4. **Automatización operativa**: conecté la plataforma con **Holded** para
          facturación electrónica automática y **SendGrid** para notificaciones
          transaccionales y de marketing.
@@ -122,16 +133,16 @@ case_studies = [
       - *Backend centralizado con Passport vs. microservicios*: concentrar la lógica de
         Mi Prote y Mi Body en un único backend Laravel desacoplado por API con OAuth2
         aceptó un acoplamiento moderado entre ambos productos en el mismo repositorio y
-        base de datos, a cambio de agilizar el *time-to-market* y reducir la
-        complejidad operativa para un equipo técnico mediano.
+        base de datos, a cambio de agilizar el *time-to-market* y mantener la complejidad
+        operativa al alcance del equipo.
     MD
     outcome: <<~MD
       | Métrica                | Estado inicial                | Tras la implementación                          |
       |--------------------------|--------------------------------|--------------------------------------------------|
       | Líneas de producto        | Prototipos / hardware aislado  | 2 productos IoT/SaaS en producción (Mi Prote y Mi Body) |
-      | Seguridad de pagos        | Sin pasarela regulada          | Certificación PCI-DSS aprobada, integrado con Banco Santander |
-      | Procesamiento de pagos    | 0% automatizado                | Cobros y suscripciones 100% automatizados (Redsys + Stripe + Nayax) |
-      | Ecosistema de datos       | Hardware sin conexión cloud    | Sincronización en tiempo real entre IoT, app Android, web y panel admin |
+      | Seguridad de pagos        | Sin pasarela regulada          | Certificación PCI-DSS obtenida por la empresa, integrada con Banco Santander |
+      | Procesamiento de pagos    | Sin cobro automatizado         | Cobros recurrentes y suscripciones automatizados de extremo a extremo (Redsys + Stripe + Nayax) |
+      | Ecosistema de datos       | Hardware sin conexión cloud    | Sincronización continua entre IoT, apps Android, web y panel admin |
 
       Se logró la **acreditación legal y técnica** para operar comercialmente en
       España, permitiendo monetizar tanto la venta directa de insumos en máquinas
@@ -140,12 +151,12 @@ case_studies = [
   },
   {
     title: "Recuperación ante desastres y reconstrucción de infraestructura en AWS",
-    subtitle: "Goapp Perú SAC · Disgo, 2018 — De pérdida total de infraestructura a 95% de datos operativos recuperados mediante parsing de logs y backups multi-cloud",
+    subtitle: "Goapp Perú SAC · Disgo, 2018 — De la pérdida total de la infraestructura a la operación restablecida, reconstruyendo los datos desde los logs y montando backups multi-cloud",
     context: <<~MD,
-      En **Goapp Perú SAC**, empresa dueña del producto **Disgo**, y tras la vacante del
-      puesto de CTO, un escalamiento mal ejecutado por un consultor externo eliminó
-      accidentalmente **toda la infraestructura de la empresa en AWS**: instancias EC2
-      (Windows Server, MongoDB), RDS (SQL Server) y buckets S3.
+      En **Goapp Perú SAC**, empresa dueña del producto **Disgo**, y con el puesto de CTO
+      vacante, un escalamiento mal ejecutado eliminó accidentalmente **toda la
+      infraestructura de la empresa en AWS**: instancias EC2 (Windows Server, MongoDB),
+      RDS (SQL Server) y buckets S3.
 
       - Sistema **totalmente inaccesible** para clientes y operación.
       - **Sin snapshots utilizables** para restauración directa desde la consola de AWS.
@@ -189,13 +200,13 @@ case_studies = [
     outcome: <<~MD
       | Métrica                  | Antes del incidente          | Tras la recuperación                |
       |---------------------------|-------------------------------|--------------------------------------|
-      | Estado del sistema         | Pérdida total (0% disponibilidad) | 100% operativo                  |
-      | Datos críticos recuperados | 0% (sin backups directos)     | 95% de los datos esenciales         |
+      | Estado del sistema         | Pérdida total (sistema inaccesible) | Operación restablecida por completo |
+      | Datos operativos           | Sin backups directos utilizables | Reconstruidos desde los logs, con pérdida residual acotada |
       | Estrategia de respaldos    | Inexistente (vulnerable a borrado total) | Automática y multi-cloud (AWS + Google Drive) |
 
-      Se reanudó la operación completa **sin impacto directo percibido por los usuarios
-      finales**. La resolución del incidente y la estrategia defensiva implementada me
-      otorgaron la confianza de la directiva para asumir la posición vacante de **CTO**.
+      Se reanudó la operación **sin interrupciones reportadas por los usuarios finales**.
+      La resolución del incidente y la estrategia defensiva implementada me otorgaron la
+      confianza de la directiva para asumir la posición vacante de **CTO**.
     MD
   },
   {
@@ -255,7 +266,7 @@ case_studies = [
       | Métrica                | Antes (estado legacy)         | Tras la intervención                        |
       |--------------------------|--------------------------------|-----------------------------------------------|
       | Tiempo de despliegue      | Sin infraestructura            | 2 días a la primera versión en producción     |
-      | Control de código y BD    | 0% (archivos ZIP y dumps SQL)  | 100% versionado (Git + migraciones Laravel)   |
+      | Control de código y BD    | Sin control (archivos ZIP y dumps SQL) | Código y esquema de BD íntegramente versionados (Git + migraciones Laravel) |
       | Tiempo a monetización     | Inoperativo                    | 5 meses (producto completo y generando ingresos) |
 
       Se transformó un prototipo abandonado e inestable en un **producto SaaS
