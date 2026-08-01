@@ -83,11 +83,11 @@ case_studies = [
     title: "Arquitectura IoT, integración FinTech y cumplimiento PCI-DSS",
     subtitle: "Prote Corp · Mi Prote & Mi Body, 2022 — De hardware aislado a dos productos IoT/SaaS en producción con certificación PCI-DSS",
     context: <<~MD,
-      **Prote Corp** necesitaba lanzar dos líneas de producto vinculadas a hardware IoT
-      en el mercado español: **Mi Prote** (máquinas expendedoras inteligentes de batidos
-      de proteína controladas por app Android) y **Mi Body** (balanzas antropométricas
-      que envían parámetros físicos en tiempo real para generar diagnósticos y planes
-      nutricionales por suscripción).
+      **Prote Corp**, *startup* española, necesitaba lanzar dos líneas de producto
+      vinculadas a hardware IoT: **Mi Prote** (máquinas expendedoras inteligentes de
+      batidos de proteína, operadas desde la pantalla Android embarcada) y **Mi Body**
+      (balanzas antropométricas que envían por Bluetooth los parámetros físicos a una
+      *tablet*, para generar diagnósticos y planes nutricionales por suscripción).
 
       - Hardware físico heterogéneo **sin conexión a una arquitectura cloud**.
       - Necesidad de procesar cobros recurrentes e integrar pasarelas bancarias
@@ -95,26 +95,29 @@ case_studies = [
         seguridad y auditoría de **PCI-DSS**.
     MD
     problem: <<~MD,
-      Como líder *fullstack*, debía diseñar la arquitectura centralizada (API REST y
-      backend), liderar los equipos de Android, IoT, web y diseño, coordinar la
-      comunicación segura hardware-servidor, integrar pasarelas de pago y facturación
-      (Redsys, Stripe, Nayax, Holded) y **garantizar el cumplimiento normativo** para
-      obtener la licencia PCI-DSS.
+      Como **CTO** —un rol que en una *startup* combina la dirección técnica con el
+      desarrollo *fullstack* del producto—, debía diseñar la arquitectura centralizada
+      (API REST y backend), dirigir a los equipos de Android, IoT, web y diseño,
+      coordinar la comunicación segura hardware-servidor, integrar las pasarelas de pago
+      y facturación (Redsys, Stripe, Nayax, Holded) y **garantizar el cumplimiento
+      normativo** para obtener la licencia PCI-DSS.
     MD
     solution: <<~MD,
       1. **API REST y autenticación**: diseñé y desplegué sobre AWS EC2 (Linux) un
          backend monolítico modular en PHP Laravel con **Laravel Passport (OAuth2)**,
-         exponiendo endpoints seguros e higienizados para los clientes web, las apps
-         Android y el hardware IoT.
+         exponiendo endpoints seguros e higienizados para los clientes web, las
+         aplicaciones Android y el hardware IoT.
       2. **Integración FinTech y compliance PCI-DSS**: integré **Redsys** (Banco
          Santander) para cobros recurrentes de suscripciones y **Stripe** para pagos
          digitales, con tokenización de tarjetas para que los datos sensibles nunca
          tocaran ni se almacenaran en los servidores propios, reduciendo el alcance de
-         auditoría y logrando la certificación PCI-DSS.
-      3. **Integración de hardware e IoT**: sincronicé con los equipos de Android e IoT
-         los protocolos REST para la lectura de sensores (balanzas Mi Body), el
-         despacho de insumos (expendedoras Mi Prote) y la integración con terminales de
-         pago físico **Nayax**.
+         auditoría y conduciendo a la empresa a la certificación PCI-DSS.
+      3. **Integración de hardware e IoT**: definí los protocolos REST para el despacho de
+         insumos (expendedoras Mi Prote), la lectura de sensores por Bluetooth (balanzas
+         Mi Body) y la integración con terminales de pago físico **Nayax**. Dirigí su
+         consumo desde las dos aplicaciones Android del ecosistema —la pantalla embarcada
+         de la expendedora y la *tablet* emparejada con la balanza, junto con su SDK de
+         comunicación—, desarrolladas bajo mi dirección por el equipo Android.
       4. **Automatización operativa**: conecté la plataforma con **Holded** para
          facturación electrónica automática y **SendGrid** para notificaciones
          transaccionales y de marketing.
@@ -130,16 +133,16 @@ case_studies = [
       - *Backend centralizado con Passport vs. microservicios*: concentrar la lógica de
         Mi Prote y Mi Body en un único backend Laravel desacoplado por API con OAuth2
         aceptó un acoplamiento moderado entre ambos productos en el mismo repositorio y
-        base de datos, a cambio de agilizar el *time-to-market* y reducir la
-        complejidad operativa para un equipo técnico mediano.
+        base de datos, a cambio de agilizar el *time-to-market* y mantener la complejidad
+        operativa al alcance del equipo.
     MD
     outcome: <<~MD
       | Métrica                | Estado inicial                | Tras la implementación                          |
       |--------------------------|--------------------------------|--------------------------------------------------|
       | Líneas de producto        | Prototipos / hardware aislado  | 2 productos IoT/SaaS en producción (Mi Prote y Mi Body) |
-      | Seguridad de pagos        | Sin pasarela regulada          | Certificación PCI-DSS aprobada, integrado con Banco Santander |
-      | Procesamiento de pagos    | 0% automatizado                | Cobros y suscripciones 100% automatizados (Redsys + Stripe + Nayax) |
-      | Ecosistema de datos       | Hardware sin conexión cloud    | Sincronización en tiempo real entre IoT, app Android, web y panel admin |
+      | Seguridad de pagos        | Sin pasarela regulada          | Certificación PCI-DSS obtenida por la empresa, integrada con Banco Santander |
+      | Procesamiento de pagos    | Sin cobro automatizado         | Cobros recurrentes y suscripciones automatizados de extremo a extremo (Redsys + Stripe + Nayax) |
+      | Ecosistema de datos       | Hardware sin conexión cloud    | Sincronización continua entre IoT, apps Android, web y panel admin |
 
       Se logró la **acreditación legal y técnica** para operar comercialmente en
       España, permitiendo monetizar tanto la venta directa de insumos en máquinas
