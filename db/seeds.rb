@@ -153,8 +153,8 @@ case_studies = [
     title: "Recuperación ante desastres y reconstrucción de infraestructura en AWS",
     subtitle: "Goapp Perú SAC · Disgo, 2018 — De la pérdida total de la infraestructura a la operación restablecida, reconstruyendo los datos desde los logs y montando backups multi-cloud",
     context: <<~MD,
-      En **Goapp Perú SAC**, empresa dueña del producto **Disgo**, y con el puesto de CTO
-      vacante, un escalamiento mal ejecutado eliminó accidentalmente **toda la
+      En **Goapp Perú SAC**, *startup* dueña del producto **Disgo**, y con el puesto de
+      CTO vacante, un escalamiento mal ejecutado eliminó accidentalmente **toda la
       infraestructura de la empresa en AWS**: instancias EC2 (Windows Server, MongoDB),
       RDS (SQL Server) y buckets S3.
 
@@ -214,9 +214,9 @@ case_studies = [
     subtitle: "Agrocredit Corporation SAC · AgroInvesting, 2020 — De un archivo ZIP desorganizado a una plataforma de inversión agrícola en producción en 48 horas y monetizando en 5 meses",
     context: <<~MD,
       El proyecto de **AgroInvesting** — plataforma de inversión y financiamiento para
-      una agricultura climáticamente inteligente, de **Agrocredit Corporation SAC** —
-      existía únicamente como un archivo comprimido ZIP con código Laravel 5.6
-      incompleto y *dumps* de MySQL desestructurados.
+      una agricultura climáticamente inteligente, de la *startup* **Agrocredit
+      Corporation SAC** — existía únicamente como un archivo comprimido ZIP con código
+      Laravel 5.6 incompleto y *dumps* de MySQL desestructurados.
 
       - **Sin repositorios Git**, documentación ni control de cambios.
       - **Sin infraestructura en la nube**.
@@ -225,11 +225,12 @@ case_studies = [
         desarrollo y la salida al mercado.
     MD
     problem: <<~MD,
-      Debía estructurar el control de versiones, realizar **ingeniería inversa** sobre la
-      base de datos para versionarla mediante código, provisionar la infraestructura
-      cloud en AWS, corregir y completar el *core* del sistema (módulos de *crowdfunding*
-      y firma electrónica) y **lanzar la primera versión a producción en el menor tiempo
-      posible**.
+      Incorporado como **CTO** para una misión acotada —llevar el producto desde ese
+      estado hasta la monetización—, debía estructurar el control de versiones, realizar
+      **ingeniería inversa** sobre la base de datos para versionarla mediante código,
+      provisionar la infraestructura cloud en AWS, corregir y completar el *core* del
+      sistema (módulos de *crowdfunding* y firma electrónica) y **lanzar la primera
+      versión a producción en el menor tiempo posible**.
     MD
     solution: <<~MD,
       1. **Control de versiones y ambientes**: inicialicé el control de versiones en
