@@ -9,15 +9,16 @@ case_studies = [
     title: "Refactorización de un dominio core y gobernanza de arquitectura en SaaS",
     subtitle: "Buk, 2025 — De un componente transversal acoplado a supuestos implícitos a soporte nativo de ex-colaboradores, sin afectar a los módulos dependientes",
     context: <<~MD,
-      En la plataforma SaaS de gestión de RR. HH. de **Buk**, el componente y el modelo
-      de datos de **Colaborador** eran un bloque transversal reutilizado por la gran
-      mayoría de los módulos (nómina, asistencia, beneficios, clima laboral). Sin
-      embargo, la arquitectura del componente asumía implícitamente que todo usuario
+      En la plataforma SaaS de gestión de RR. HH. de **Buk**, el modelo de datos de
+      **Colaborador** era un bloque transversal reutilizado a lo largo del producto. El
+      *building block* de participantes construido sobre él daba servicio a los módulos
+      de **encuestas, talento y selección**, y asumía implícitamente que todo usuario
       registrado era un colaborador **activo**.
 
-      Al requerir el lanzamiento de encuestas para ex-colaboradores (procesos de
-      *offboarding* y encuestas de salida), el sistema no permitía cargar ni consultar
-      usuarios desvinculados sin alterar el comportamiento global de la plataforma.
+      Al requerir, desde el módulo de **cultura**, el lanzamiento de encuestas para
+      ex-colaboradores (procesos de *offboarding* y encuestas de salida), el sistema no
+      permitía cargar ni consultar usuarios desvinculados sin alterar el comportamiento
+      de los módulos que ya dependían de ese componente.
     MD
     problem: <<~MD,
       Como *champion*/líder de la misión, debía conducirla de extremo a extremo —
@@ -48,8 +49,8 @@ case_studies = [
          existentes.
       4. **Plan de pruebas y QA exhaustivo**: asumí la calidad de la misión de punta a
          punta, definiendo una matriz de pruebas de regresión y automatizando pruebas
-         unitarias y de integración para certificar que el cálculo de nóminas y los
-         permisos de usuarios activos no sufrieran alteración alguna.
+         unitarias y de integración para certificar que los flujos de talento y selección
+         y los permisos de usuarios activos no sufrieran alteración alguna.
 
       **Compromisos de ingeniería (trade-offs)**
 
@@ -63,13 +64,13 @@ case_studies = [
         *pull requests* con el equipo de Plataforma, en aprobaciones de UX/UI/*design
         system* para los ajustes de interfaz y en pruebas de regresión cruzadas extendió
         el *time-to-market* de la funcionalidad, a cambio de reducir al mínimo el riesgo
-        de caídas o inconsistencias en el cálculo de nómina de los usuarios activos.
+        de caídas o inconsistencias en los módulos que ya consumían el componente.
     MD
     outcome: <<~MD
       | Métrica                  | Estado inicial                          | Tras la refactorización                                   |
       |-----------------------------|--------------------------------------------|----------------------------------------------------------------|
       | Soporte de entidades         | Exclusivo para colaboradores activos       | Soporte nativo para ex-colaboradores en encuestas de salida    |
-      | Retrocompatibilidad          | Riesgo alto por impacto transversal        | Módulos dependientes (nómina, asistencia) sin cambios en su comportamiento |
+      | Retrocompatibilidad          | Riesgo alto por impacto transversal        | Módulos dependientes (talento, selección) sin cambios en su comportamiento |
       | Gobernanza técnica           | Código acoplado a supuestos implícitos     | Cambios revisados y aprobados por el equipo de Plataforma      |
 
       Se habilitó el módulo de encuestas a ex-colaboradores (*offboarding*), abriendo
