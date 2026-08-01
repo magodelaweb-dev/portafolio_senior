@@ -20,30 +20,36 @@ case_studies = [
       usuarios desvinculados sin alterar el comportamiento global de la plataforma.
     MD
     problem: <<~MD,
-      Como *champion*/líder de la misión, debía rediseñar y refactorizar el componente
-      de colaboradores en backend y frontend para soportar la entidad de
-      **ex-colaboradores desvinculados**, garantizando cero tiempo de inactividad,
-      **retrocompatibilidad** con todos los módulos dependientes y la aprobación técnica
-      del equipo central de Plataforma.
+      Como *champion*/líder de la misión, debía conducirla de extremo a extremo —
+      *discovery* técnico, planificación del *delivery* y desarrollo— para soportar la
+      entidad de **ex-colaboradores desvinculados**, garantizando cero tiempo de
+      inactividad, **retrocompatibilidad** con todos los módulos dependientes y la
+      aprobación técnica del equipo central de Plataforma.
     MD
     solution: <<~MD,
-      1. **Análisis de impacto y mapeo de dependencias**: audité el código para
-         identificar todos los acoplamientos y las consultas directas a la entidad
-         Colaborador a lo largo de los distintos submódulos, antes de tocar una sola
-         línea de la interfaz compartida.
-      2. **Refactorización defensiva y retrocompatibilidad**: rediseñé la interfaz del
-         componente en backend (API REST) y frontend (Vue.js), abstrayendo la consulta
-         del estado (activo/desvinculado) mediante *scopes* y filtros configurables,
-         de modo que las llamadas existentes conservaran su comportamiento previo sin
-         cambios.
-      3. **Gobernanza y estrategia de pull requests**: fragmenté la refactorización en
-         cambios atómicos y revisables, coordinando las revisiones de arquitectura con
-         el equipo de Plataforma para cumplir los estándares de rendimiento y seguridad
-         de la base de código principal.
-      4. **Plan de pruebas y QA exhaustivo**: diseñé junto con QA una matriz de pruebas
-         de regresión y automaticé pruebas unitarias y de integración para certificar
-         que el cálculo de nóminas y los permisos de usuarios activos no sufrieran
-         alteración alguna.
+      1. **Discovery técnico y análisis de impacto**: abrí la misión con un documento de
+         diseño que evaluaba alternativas de solución, el modelo de datos, los riesgos y
+         el plan de despliegue. Sobre esa base audité el código para identificar todos
+         los acoplamientos y las consultas directas a la entidad Colaborador a lo largo
+         de los distintos submódulos, antes de tocar una sola línea de la interfaz
+         compartida.
+      2. **Refactorización defensiva y retrocompatibilidad**: rediseñé los *building
+         blocks* internos del componente —interfaces de Rails que combinan ERB, *cells*,
+         JavaScript y widgets Vue— abstrayendo la consulta del estado
+         (activo/desvinculado) mediante *scopes* y filtros configurables, de modo que las
+         llamadas existentes conservaran su comportamiento previo sin cambios. El grueso
+         del trabajo fue de backend; los ajustes de interfaz fueron puntuales.
+      3. **Gobernanza y estrategia de pull requests**: traduje el diseño a tarjetas
+         acotadas, con criterios de aceptación y plan de pruebas propios, y fragmenté la
+         refactorización en cambios atómicos y revisables. Coordiné las revisiones de
+         arquitectura con el equipo de Plataforma para cumplir los estándares de
+         rendimiento y seguridad de la base de código principal, y con los equipos de UX,
+         UI y *design system* cada vez que un cambio modificaba componentes de interfaz
+         existentes.
+      4. **Plan de pruebas y QA exhaustivo**: asumí la calidad de la misión de punta a
+         punta, definiendo una matriz de pruebas de regresión y automatizando pruebas
+         unitarias y de integración para certificar que el cálculo de nóminas y los
+         permisos de usuarios activos no sufrieran alteración alguna.
 
       **Compromisos de ingeniería (trade-offs)**
 
@@ -54,21 +60,21 @@ case_studies = [
         mayor, a cambio de preservar la integridad referencial histórica y evitar la
         duplicación de los datos de usuario.
       - *QA exhaustivo vs. velocidad de despliegue*: invertir en revisión atómica de
-        *pull requests* con el equipo de Plataforma y en pruebas de regresión cruzadas
-        extendió el *time-to-market* de la funcionalidad, a cambio de reducir al mínimo
-        el riesgo de caídas o inconsistencias en el cálculo de nómina de los usuarios
-        activos.
+        *pull requests* con el equipo de Plataforma, en aprobaciones de UX/UI/*design
+        system* para los ajustes de interfaz y en pruebas de regresión cruzadas extendió
+        el *time-to-market* de la funcionalidad, a cambio de reducir al mínimo el riesgo
+        de caídas o inconsistencias en el cálculo de nómina de los usuarios activos.
     MD
     outcome: <<~MD
       | Métrica                  | Estado inicial                          | Tras la refactorización                                   |
       |-----------------------------|--------------------------------------------|----------------------------------------------------------------|
       | Soporte de entidades         | Exclusivo para colaboradores activos       | Soporte nativo para ex-colaboradores en encuestas de salida    |
-      | Incidencias en producción    | Riesgo alto por impacto transversal        | Sin incidencias reportadas en nómina ni asistencia tras el despliegue |
+      | Retrocompatibilidad          | Riesgo alto por impacto transversal        | Módulos dependientes (nómina, asistencia) sin cambios en su comportamiento |
       | Gobernanza técnica           | Código acoplado a supuestos implícitos     | Cambios revisados y aprobados por el equipo de Plataforma      |
 
       Se habilitó el módulo de encuestas a ex-colaboradores (*offboarding*), abriendo
       una nueva línea de **métricas de retención de talento** para las empresas
-      clientes.
+      clientes, y su uso creció tras la habilitación.
     MD
   },
   {
