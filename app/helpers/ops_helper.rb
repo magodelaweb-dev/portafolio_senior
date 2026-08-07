@@ -24,6 +24,16 @@ module OpsHelper
     tag.span(label, class: "rounded px-1.5 py-0.5 text-xs font-semibold #{classes}")
   end
 
+  # A clock that each visitor reads in their own time zone. The datetime
+  # attribute holds the authoritative UTC instant and the body is the
+  # server-side rendering, which stands in until (or unless) Stimulus rewrites it.
+  def ops_local_time(time, **options)
+    tag.time(time.utc.strftime("%H:%M:%S"),
+             datetime: time.utc.iso8601,
+             data: { controller: "local-time" },
+             **options)
+  end
+
   # Points for an inline SVG polyline sparkline (0,0 is top-left).
   def ops_sparkline_points(values, width: 240, height: 40)
     return "" if values.size < 2
