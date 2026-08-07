@@ -7,7 +7,7 @@
       </span>
       Monitoreando
     </span>
-    <span>Actualizado a las <%= metrics[:generated_at].strftime("%H:%M:%S") %></span>
+    <span>Actualizado a las <%= ops_local_time(metrics[:generated_at]) %> <span class="text-slate-300 dark:text-slate-600">(tu hora local)</span></span>
   </div>
 
   <%# ---- Señales doradas: latencia, tráfico, errores, saturación ---- %>
@@ -151,7 +151,7 @@
                     <% color = { "finished" => "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300", "failed" => "bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300", "scheduled" => "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300", "ready" => "bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300" }[job[:status]] %>
                     <span class="rounded px-1.5 py-0.5 text-xs font-semibold <%= color %>"><%= job[:status] %></span>
                   </td>
-                  <td class="px-4 py-2 text-right font-mono text-xs text-slate-500"><%= job[:at].strftime("%H:%M:%S") %></td>
+                  <td class="px-4 py-2 text-right font-mono text-xs text-slate-500"><%= ops_local_time(job[:at]) %></td>
                 </tr>
               <% end %>
             </tbody>
