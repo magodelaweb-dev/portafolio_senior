@@ -40,6 +40,10 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 
+# Ignore local working material (notes, content dumps, drafts) that is not
+# part of the application.
+/recursos_locales/
+
 # Ignore SQLite databases and their temporary WAL/SHM/journal files,
 # even if they are created outside of the storage/ directory.
 *.sqlite3
